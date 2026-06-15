@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRAJNA — Faculty Excellence Platform</title>
+<style>
+  /* ─── TOKENS ─────────────────────────────────────────────── */
+  :root {
+    --navy:    #0B1D3A;
+    --navy2:   #112952;
+    --blue:    #1A4FBE;
+    --blue2:   #2563EB;
+    --blue3:   #3B82F6;
+    --sky:     #EFF6FF;
+    --gold:    #F59E0B;
+    --gold2:   #FBBF24;
+    --white:   #FFFFFF;
+    --off:     #F0F4FF;
+    --gray:    #64748B;
+    --lgray:   #E2E8F0;
+    --text:    #0F172A;
+    --card:    #1E3A6E;
+    --card2:   #162D57;
+    --green:   #10B981;
+    --purple:  #7C3AED;
+    --rose:    #F43F5E;
+    --teal:    #06B6D4;
+    --r: 12px;
+    --r2: 20px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--navy); color: var(--white); overflow: hidden; height: 100vh; }
+
+  /* ─── SCREEN SYSTEM ──────────────────────────────────────── */
+  .screen { display: none; position: absolute; inset: 0; overflow-y: auto; background: var(--navy); }
+  .screen.active { display: block; }
+
+  /* ─── SCROLLBAR ───────────────────────────────────────────── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--navy); }
+  ::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 2px; }
+
+  /* ─── TOPBAR ─────────────────────────────────────────────── */
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(11,29,58,0.95); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding: 0 20px; height: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .topbar-left { display: flex; align-items: center; gap: 10px; }
+  .logo-mark { width: 32px; height: 32px; background: var(--blue2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; color: white; }
+  .logo-text { font-size: 16px; font-weight: 700; letter-spacing: 1px; }
+  .logo-sub { font-size: 10px; color: var(--gold); font-weight: 600; letter-spacing: 0.5px; margin-top: -2px; }
+  .topbar-right { display: flex; align-items: center; gap: 12px; }
+  .avatar-sm { width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--gold); overflow: hidden; cursor: pointer; }
+  .avatar-sm img { width: 100%; height: 100%; object-fit: cover; }
+  .notif-btn { width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,0.08); border: none; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; position: relative; }
+  .notif-dot { position: absolute; top: 6px; right: 6px; width: 8px; height: 8px; background: var(--rose); border-radius: 50%; border: 2px solid var(--navy); }
+
+  /* ─── BOTTOM NAV ─────────────────────────────────────────── */
+  .bottom-nav {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(11,29,58,0.97); backdrop-filter: blur(16px);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex; justify-content: space-around; align-items: center;
+    padding: 8px 0 12px;
+  }
+  .nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer; padding: 4px 12px; border-radius: 10px; transition: all 0.2s; border: none; background: none; color: var(--gray); }
+  .nav-item.active { color: var(--blue3); }
+  .nav-item .nav-icon { font-size: 20px; }
+  .nav-item .nav-label { font-size: 10px; font-weight: 500; }
+
+  /* ─── HERO PANELS ────────────────────────────────────────── */
+  .hero-img { width: 100%; height: 200px; object-fit: cover; border-radius: var(--r2) var(--r2) 0 0; }
+  .hero-overlay { position: relative; }
+  .hero-overlay::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, var(--navy) 0%, transparent 60%); border-radius: var(--r2) var(--r2) 0 0; }
+
+  /* ─── CARDS ──────────────────────────────────────────────── */
+  .card { background: var(--card); border-radius: var(--r2); padding: 20px; margin: 0 16px 16px; border: 1px solid rgba(255,255,255,0.07); }
+  .card2 { background: var(--card2); border-radius: var(--r); padding: 16px; border: 1px solid rgba(255,255,255,0.06); }
+  .glass { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--r2); backdrop-filter: blur(10px); }
+
+  /* ─── SCORE RING ──────────────────────────────────────────── */
+  .score-ring { position: relative; display: inline-flex; align-items: center; justify-content: center; }
+  .score-ring svg { transform: rotate(-90deg); }
+  .score-ring .score-inner { position: absolute; text-align: center; }
+
+  /* ─── BUTTONS ────────────────────────────────────────────── */
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 12px 24px; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; border: none; transition: all 0.2s; }
+  .btn-primary { background: var(--blue2); color: white; }
+  .btn-primary:hover { background: var(--blue3); transform: translateY(-1px); }
+  .btn-gold { background: var(--gold); color: var(--navy); }
+  .btn-ghost { background: rgba(255,255,255,0.08); color: white; border: 1px solid rgba(255,255,255,0.15); }
+  .btn-full { width: 100%; }
+  .btn-sm { padding: 8px 16px; font-size: 12px; border-radius: 8px; }
+
+  /* ─── BADGES ─────────────────────────────────────────────── */
+  .badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 99px; font-size: 11px; font-weight: 600; }
+  .badge-gold { background: rgba(245,158,11,0.15); color: var(--gold); border: 1px solid rgba(245,158,11,0.3); }
+  .badge-blue { background: rgba(37,99,235,0.2); color: var(--blue3); border: 1px solid rgba(37,99,235,0.3); }
+  .badge-green { background: rgba(16,185,129,0.15); color: var(--green); border: 1px solid rgba(16,185,129,0.3); }
+  .badge-rose { background: rgba(244,63,94,0.15); color: var(--rose); border: 1px solid rgba(244,63,94,0.3); }
+
+  /* ─── PROGRESS BAR ────────────────────────────────────────── */
+  .prog-track { background: rgba(255,255,255,0.08); border-radius: 99px; height: 6px; overflow: hidden; }
+  .prog-fill { height: 100%; border-radius: 99px; transition: width 1s ease; }
+
+  /* ─── PRAJNA COMPANION ────────────────────────────────────── */
+  .prajna-bubble {
+    position: fixed; bottom: 80px; right: 16px; z-index: 200;
+    display: flex; flex-direction: column; align-items: flex-end; gap: 8px;
+  }
+  .prajna-avatar-btn {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue2), var(--purple));
+    border: 2px solid var(--gold); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; box-shadow: 0 8px 24px rgba(37,99,235,0.4);
+    animation: pulse-glow 3s ease infinite;
+  }
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 8px 24px rgba(37,99,235,0.4); }
+    50% { box-shadow: 0 8px 32px rgba(124,58,237,0.6); }
+  }
+  .prajna-chat-box {
+    background: var(--card); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px 4px 16px 16px;
+    padding: 14px 16px; max-width: 260px; display: none;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+  }
+  .prajna-chat-box.show { display: block; animation: slideUp 0.3s ease; }
+  @keyframes slideUp { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform: translateY(0); } }
+  .prajna-name { font-size: 11px; color: var(--gold); font-weight: 700; margin-bottom: 6px; }
+  .prajna-msg { font-size: 13px; color: rgba(255,255,255,0.9); line-height: 1.5; }
+  .prajna-msg span { color: var(--gold); font-weight: 600; }
+  .prajna-close { position: absolute; top: 8px; right: 10px; background: none; border: none; color: var(--gray); cursor: pointer; font-size: 14px; }
+
+  /* ─── PAGE CONTENT ────────────────────────────────────────── */
+  .page-content { padding-bottom: 80px; }
+
+  /* ─── SECTION LABELS ──────────────────────────────────────── */
+  .section-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; color: var(--gold); text-transform: uppercase; margin: 24px 16px 10px; }
+
+  /* ─── STAT ROW ────────────────────────────────────────────── */
+  .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 0 16px; margin-bottom: 16px; }
+  .stat-card { background: var(--card2); border-radius: var(--r); padding: 14px 10px; text-align: center; border: 1px solid rgba(255,255,255,0.06); }
+  .stat-val { font-size: 22px; font-weight: 800; }
+  .stat-lbl { font-size: 10px; color: var(--gray); margin-top: 2px; }
+
+  /* ─── RANK CARD ───────────────────────────────────────────── */
+  .rank-item { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); cursor: pointer; transition: background 0.2s; }
+  .rank-item:hover { background: rgba(255,255,255,0.03); }
+  .rank-item.me { background: rgba(37,99,235,0.12); border-left: 3px solid var(--blue2); }
+  .rank-num { font-size: 14px; font-weight: 800; color: var(--gray); min-width: 28px; text-align: center; }
+  .rank-num.top { color: var(--gold); }
+  .rank-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,255,255,0.1); flex-shrink: 0; }
+  .rank-info { flex: 1; }
+  .rank-name { font-size: 13px; font-weight: 600; }
+  .rank-dept { font-size: 11px; color: var(--gray); margin-top: 1px; }
+  .rank-score { font-size: 16px; font-weight: 800; color: var(--blue3); }
+  .rank-tier { font-size: 9px; color: var(--gold); font-weight: 700; }
+
+  /* ─── CLUSTER PROGRESS ────────────────────────────────────── */
+  .cluster-item { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); cursor: pointer; }
+  .cluster-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .cluster-info { flex: 1; }
+  .cluster-name { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .cluster-prog { display: flex; align-items: center; gap: 8px; }
+  .cluster-pct { font-size: 11px; color: var(--gray); min-width: 32px; text-align: right; }
+  .cluster-pts { font-size: 13px; font-weight: 700; color: var(--blue3); min-width: 50px; text-align: right; }
+
+  /* ─── NOTIFICATION ITEM ───────────────────────────────────── */
+  .notif-item { display: flex; gap: 12px; padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); cursor: pointer; }
+  .notif-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .notif-text { flex: 1; }
+  .notif-title { font-size: 13px; font-weight: 600; margin-bottom: 3px; }
+  .notif-sub { font-size: 11px; color: var(--gray); line-height: 1.4; }
+  .notif-time { font-size: 10px; color: var(--gray); }
+  .notif-unread { width: 8px; height: 8px; border-radius: 50%; background: var(--blue3); flex-shrink: 0; margin-top: 4px; }
+
+  /* ─── UPLOAD AREA ─────────────────────────────────────────── */
+  .upload-zone { border: 2px dashed rgba(37,99,235,0.4); border-radius: var(--r2); padding: 32px 20px; text-align: center; cursor: pointer; transition: all 0.2s; margin: 0 16px 16px; }
+  .upload-zone:hover { border-color: var(--blue2); background: rgba(37,99,235,0.05); }
+
+  /* ─── INPUT ───────────────────────────────────────────────── */
+  .input-group { margin: 0 16px 16px; }
+  .input-label { font-size: 12px; color: var(--gray); margin-bottom: 6px; font-weight: 600; }
+  .input-field { width: 100%; background: var(--card2); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--r); padding: 12px 14px; color: white; font-size: 14px; outline: none; }
+  .input-field:focus { border-color: var(--blue2); }
+  select.input-field { cursor: pointer; }
+
+  /* ─── GRADIENT HEADER ─────────────────────────────────────── */
+  .grad-header { background: linear-gradient(135deg, var(--navy2) 0%, var(--blue) 100%); padding: 24px 16px 20px; }
+
+  /* ─── PHOTO GRID ──────────────────────────────────────────── */
+  .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 16px; margin-bottom: 16px; }
+  .photo-card { border-radius: var(--r); overflow: hidden; position: relative; height: 120px; cursor: pointer; }
+  .photo-card img { width: 100%; height: 100%; object-fit: cover; }
+  .photo-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%); display: flex; align-items: flex-end; padding: 10px; }
+  .photo-card-label { font-size: 11px; font-weight: 700; color: white; }
+
+  /* ─── LOGIN SCREEN ────────────────────────────────────────── */
+  .login-bg { min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; position: relative; }
+  .login-img { position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1562774053-701939374585?w=600&q=80') center/cover; }
+  .login-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, var(--navy) 0%, rgba(11,29,58,0.7) 50%, rgba(11,29,58,0.3) 100%); }
+  .login-content { position: relative; z-index: 2; padding: 0 24px 40px; }
+  .login-logo { display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; }
+  .login-logo-mark { width: 72px; height: 72px; background: linear-gradient(135deg, var(--blue2), var(--purple)); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 900; margin-bottom: 10px; box-shadow: 0 16px 40px rgba(37,99,235,0.5); }
+  .login-title { font-size: 36px; font-weight: 900; letter-spacing: 2px; }
+  .login-title span { color: var(--gold); }
+  .login-subtitle { font-size: 14px; color: rgba(255,255,255,0.7); margin-top: 6px; text-align: center; }
+  .otp-row { display: flex; gap: 10px; margin-bottom: 16px; }
+  .otp-box { flex: 1; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 16px; text-align: center; font-size: 24px; font-weight: 700; color: white; }
+
+  /* ─── WELCOME ANIMATION ────────────────────────────────────── */
+  .welcome-screen { background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 50%, #0A0F2E 100%); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 24px; text-align: center; }
+  .welcome-avatar { width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--gold); margin: 0 auto 24px; overflow: hidden; box-shadow: 0 0 0 8px rgba(245,158,11,0.1), 0 16px 40px rgba(37,99,235,0.4); }
+  .welcome-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .welcome-hi { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+  .welcome-msg { font-size: 15px; color: rgba(255,255,255,0.8); line-height: 1.6; max-width: 300px; margin: 0 auto 32px; }
+  .welcome-stars { display: flex; justify-content: center; gap: 4px; margin-bottom: 24px; font-size: 20px; }
+
+  /* ─── END OF DAY ──────────────────────────────────────────── */
+  .eod-screen { background: linear-gradient(180deg, #0B1D3A 0%, #0A0F2E 100%); min-height: 100vh; padding: 0 0 100px; }
+  .eod-hero { padding: 40px 24px; text-align: center; }
+  .eod-moon { font-size: 64px; margin-bottom: 16px; }
+
+  /* ─── MISC UTILS ──────────────────────────────────────────── */
+  .row { display: flex; align-items: center; }
+  .between { justify-content: space-between; }
+  .gap-8 { gap: 8px; }
+  .gap-12 { gap: 12px; }
+  .mt-4 { margin-top: 4px; }
+  .mt-8 { margin-top: 8px; }
+  .text-sm { font-size: 12px; }
+  .text-xs { font-size: 10px; }
+  .text-gray { color: var(--gray); }
+  .text-gold { color: var(--gold); }
+  .text-blue { color: var(--blue3); }
+  .text-green { color: var(--green); }
+  .fw-700 { font-weight: 700; }
+  .px-16 { padding: 0 16px; }
+  .mb-16 { margin-bottom: 16px; }
+  .mt-16 { margin-top: 16px; }
+  .divider { height: 1px; background: rgba(255,255,255,0.06); margin: 8px 0; }
+  .centered { text-align: center; }
+
+  /* Star / medal emojis for leaderboard top 3 */
+  .medal-1 { color: #FFD700; }
+  .medal-2 { color: #C0C0C0; }
+  .medal-3 { color: #CD7F32; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SCREEN 1 — LOGIN
+═══════════════════════════════════════════════════════════ -->
+<div id="s-login" class="screen active">
+  <div class="login-bg">
+    <div class="login-img"></div>
+    <div class="login-content">
+      <div class="login-logo">
+        <div class="login-logo-mark">P</div>
+        <div class="login-title">PRAJNA</div>
+        <div style="font-size:18px;color:var(--gold);font-weight:600;letter-spacing:1px;">प्रज्ञा</div>
+        <div class="login-subtitle">Your Professional AI Companion<br>GITAM University</div>
+      </div>
+      <div class="input-group">
+        <div class="input-label">Employee ID or Email</div>
+        <input class="input-field" placeholder="e.g. faculty@gitam.edu" value="kbuddha@gitam.edu">
+      </div>
+      <div class="input-group">
+        <div class="input-label">OTP sent to +91 97015 16999</div>
+        <div class="otp-row">
+          <div class="otp-box">8</div>
+          <div class="otp-box">4</div>
+          <div class="otp-box">2</div>
+          <div class="otp-box">1</div>
+          <div class="otp-box">5</div>
+          <div class="otp-box">9</div>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-full" style="margin-bottom:12px;" onclick="goTo('s-welcome')">Sign In to PRAJNA</button>
+      <div class="centered text-xs text-gray">Secured by GITAM SSO · OTP expires in 5:00</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SCREEN 2 — WELCOME / PRAJNA COMPANION GREETING
+═══════════════════════════════════════════════════════════ -->
+<div id="s-welcome" class="screen">
+  <div class="welcome-screen">
+    <div class="welcome-avatar">
+      <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80" alt="Prajna companion">
+    </div>
+    <div class="welcome-stars">⭐⭐⭐⭐⭐</div>
+    <div class="welcome-hi">Good morning, Dr. Kishore! 🙏</div>
+    <div class="welcome-msg">
+      I am <span style="color:var(--gold);font-weight:700;">Prajna</span> — your personal companion at GITAM.<br><br>
+      You are currently ranked <span style="color:var(--gold);font-weight:700;">#3 in your department</span>.<br><br>
+      Today's priority: <span style="color:var(--blue3);font-weight:700;">Submit your FDP certificate</span> — it will take you to #2. 🚀<br><br>
+      <span style="color:rgba(255,255,255,0.6);font-size:13px;">You are 47 points away from <strong style="color:var(--gold)">Gold tier</strong>. Let's close that gap today.</span>
+    </div>
+    <button class="btn btn-gold btn-full" style="max-width:300px;margin-bottom:12px;" onclick="goTo('s-home')">Let's Go →</button>
+    <button class="btn btn-ghost" style="max-width:300px;font-size:13px;" onclick="goTo('s-home')">Skip greeting</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SCREEN 3 — HOME DASHBOARD
+═══════════════════════════════════════════════════════════ -->
+<div id="s-home" class="screen">
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="logo-mark">P</div>
+      <div><div class="logo-text">PRAJNA</div><div class="logo-sub">GITAM UNIVERSITY</div></div>
+    </div>
+    <div class="topbar-right">
+      <button class="notif-btn" onclick="goTo('s-notif')">🔔<div class="notif-dot"></div></button>
+      <div class="avatar-sm" onclick="goTo('s-profile')">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="Dr Kishore">
+      </div>
+    </div>
+  </div>
+  <div class="page-content">
+
+    <!-- Hero score card -->
+    <div style="background:linear-gradient(135deg,#112952,#1A4FBE);margin:16px;border-radius:24px;padding:24px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,0.04);"></div>
+      <div style="position:absolute;top:10px;right:10px;width:70px;height:70px;border-radius:50%;background:rgba(255,255,255,0.04);"></div>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <div style="position:relative;">
+          <svg width="90" height="90" viewBox="0 0 90 90">
+            <circle cx="45" cy="45" r="38" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="6"/>
+            <circle cx="45" cy="45" r="38" fill="none" stroke="var(--gold)" stroke-width="6" stroke-dasharray="239" stroke-dashoffset="90" stroke-linecap="round" transform="rotate(-90 45 45)"/>
+          </svg>
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+            <div style="font-size:20px;font-weight:900;color:white;">653</div>
+            <div style="font-size:9px;color:var(--gold);font-weight:700;">/ 1000</div>
+          </div>
+        </div>
+        <div style="flex:1;">
+          <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-bottom:2px;">Dr. Kishore Budda</div>
+          <div style="font-size:18px;font-weight:800;margin-bottom:6px;">PRAJNA Score</div>
+          <div class="badge badge-gold" style="margin-bottom:8px;">🥇 Silver Faculty</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.7);">47 pts to <span style="color:var(--gold);font-weight:700;">Gold</span></div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:28px;font-weight:900;color:var(--blue3);">#3</div>
+          <div style="font-size:10px;color:var(--gray);">Dept Rank</div>
+          <div style="font-size:11px;color:var(--green);margin-top:4px;">↑ +2 this week</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick stats -->
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-val" style="color:var(--green);">4.2</div>
+        <div class="stat-lbl">Feedback Score</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" style="color:var(--blue3);">7</div>
+        <div class="stat-lbl">Papers (Scopus)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" style="color:var(--gold);">H-6</div>
+        <div class="stat-lbl">H-Index</div>
+      </div>
+    </div>
+
+    <!-- Today's priority -->
+    <div style="margin:0 16px 16px;background:linear-gradient(135deg,rgba(245,158,11,0.12),rgba(245,158,11,0.05));border:1px solid rgba(245,158,11,0.25);border-radius:var(--r2);padding:16px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <div style="font-size:22px;">🎯</div>
+        <div>
+          <div style="font-size:11px;color:var(--gold);font-weight:700;letter-spacing:0.5px;">PRAJNA'S TOP PRIORITY FOR YOU TODAY</div>
+          <div style="font-size:15px;font-weight:700;margin-top:2px;">Upload your FDP Certificate</div>
+        </div>
+      </div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.7);margin-bottom:12px;">Completing this adds 15 points to your score and moves you to <strong style="color:var(--gold);">#2 in your department</strong>. It takes under 2 minutes.</div>
+      <button class="btn btn-gold btn-sm" onclick="goTo('s-upload')">Upload Now →</button>
+    </div>
+
+    <!-- Photo quick access -->
+    <div class="section-label">YOUR JOURNEY</div>
+    <div class="photo-grid">
+      <div class="photo-card" onclick="goTo('s-clusters')">
+        <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=400&q=80" alt="Teaching">
+        <div class="photo-card-overlay"><div class="photo-card-label">📚 Teaching<br><span style="color:var(--gold);">88% complete</span></div></div>
+      </div>
+      <div class="photo-card" onclick="goTo('s-clusters')">
+        <img src="https://images.unsplash.com/photo-1532094349884-543559244ee6?w=400&q=80" alt="Research">
+        <div class="photo-card-overlay"><div class="photo-card-label">🔬 Research<br><span style="color:var(--blue3);">62% complete</span></div></div>
+      </div>
+      <div class="photo-card" onclick="goTo('s-clusters')">
+        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&q=80" alt="Industry">
+        <div class="photo-card-overlay"><div class="photo-card-label">🏭 Industry<br><span style="color:var(--green);">45% complete</span></div></div>
+      </div>
+      <div class="photo-card" onclick="goTo('s-leaderboard')">
+        <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=400&q=80" alt="Leaderboard">
+        <div class="photo-card-overlay"><div class="photo-card-label">🏆 Leaderboard<br><span style="color:var(--gold);">You are #3</span></div></div>
+      </div>
+    </div>
+
+    <!-- Upcoming deadlines -->
+    <div class="section-label">UPCOMING DEADLINES</div>
+    <div class="card" style="padding:0;overflow:hidden;">
+      <div class="notif-item" onclick="goTo('s-upload')">
+        <div class="notif-icon" style="background:rgba(244,63,94,0.15);">📋</div>
+        <div class="notif-text">
+          <div class="notif-title">APAR Self-Assessment</div>
+          <div class="notif-sub">Due in 5 days — submit your annual performance review</div>
+        </div>
+        <div style="font-size:11px;color:var(--rose);font-weight:700;">5d</div>
+      </div>
+      <div class="notif-item" onclick="goTo('s-upload')">
+        <div class="notif-icon" style="background:rgba(245,158,11,0.15);">📄</div>
+        <div class="notif-text">
+          <div class="notif-title">NBA CO Attainment Report</div>
+          <div class="notif-sub">Course files for EE301 due next week</div>
+        </div>
+        <div style="font-size:11px;color:var(--gold);font-weight:700;">7d</div>
+      </div>
+    </div>
+
+  </div>
+  <div class="bottom-nav">
+    <button class="nav-item active" onclick="goTo('s-home')"><span class="nav-icon">🏠</span><span class="nav-label">Home</span></button>
+    <button class="nav-item" onclick="goTo('s-leaderboard')"><span class="nav-icon">🏆</span><span class="nav-label">Rank</span></button>
+    <button class="nav-item" onclick="goTo('s-clusters')"><span class="nav-icon">📊</span><span class="nav-label">My Score</span></button>
+    <button class="nav-item" onclick="goTo('s-upload')"><span class="nav-icon">⬆️</span><span class="nav-label">Upload</span></button>
+    <button class="nav-item" onclick="goTo('s-profile')"><span class="nav-icon">👤</span><span class="nav-label">Profile</span></button>
+  </div>
+  <!-- Prajna floating companion -->
+  <div class="prajna-bubble" id="prajna-home">
+    <div class="prajna-chat-box show" id="prajna-home-box" style="position:relative;">
+      <button class="prajna-close" onclick="document.getElementById('prajna-home-box').style.display='none'">✕</button>
+      <div class="prajna-name">✨ Prajna says</div>
+      <div class="prajna-msg">Good morning Dr. Kishore! Upload that <span>FDP certificate</span> today — you'll be #2 in your department before lunch! 💪</div>
+    </div>
+    <div class="prajna-avatar-btn" onclick="togglePrajna('prajna-home-box')">👩</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SCREEN 4 — LEADERBOARD
+═══════════════════════════════════════════════════════════ -->
+<div id="s-leaderboard" class="screen">
+  <div class="topbar">
+    <div class="topbar-left"><button class="btn btn-ghost btn-sm" onclick="goTo('s-home')">← Back</button></div>
+    <div style="font-size:16px;font-weight:700;">🏆 Leaderboard</div>
+    <div class="topbar-right"><div class="avatar-sm" onclick="goTo('s-profile')"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="Dr Kishore"></div></div>
+  </div>
+  <div class="page-content">
+
+    <!-- Filter tabs -->
+    <div style="display:flex;gap:8px;padding:16px 16px 8px;overflow-x:auto;">
+      <button class="badge badge-blue" style="cursor:pointer;white-space:nowrap;padding:8px 16px;font-size:12px;">Department</button>
+      <button class="badge badge-gold" style="cursor:pointer;white-space:nowrap;padding:8px 16px;font-size:12px;opacity:0.5;">School</button>
+      <button class="badge badge-gold" style="cursor:pointer;white-space:nowrap;padding:8px 16px;font-size:12px;opacity:0.5;">Campus</button>
+      <button class="badge badge-gold" style="cursor:pointer;white-space:nowrap;padding:8px 16px;font-size:12px;opacity:0.5;">All GITAM</button>
+    </div>
+
+    <!-- TARGET #1 -->
+    <div style="margin:8px 16px 12px;">
+      <div style="font-size:10px;color:var(--gold);font-weight:700;letter-spacing:1px;margin-bottom:8px;">🎯 YOUR TARGET — RANK #1</div>
+      <div style="background:linear-gradient(135deg,rgba(245,158,11,0.12),rgba(245,158,11,0.04));border:1px solid rgba(245,158,11,0.35);border-radius:var(--r2);padding:14px 16px;display:flex;align-items:center;gap:14px;">
+        <div style="position:relative;">
+          <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=100&q=80" style="width:56px;height:56px;border-radius:50%;border:3px solid var(--gold);object-fit:cover;box-shadow:0 0 16px rgba(245,158,11,0.5);">
+          <div style="position:absolute;bottom:-4px;right:-4px;font-size:16px;">🥇</div>
+        </div>
+        <div style="flex:1;">
+          <div style="font-size:14px;font-weight:800;">Dr. Lignesh Kumar</div>
+          <div style="font-size:11px;color:var(--gray);">ECE Dept · Gold Faculty</div>
+          <div style="font-size:11px;color:var(--gold);margin-top:4px;font-weight:600;">Score: 784 pts</div>
+          <div style="margin-top:6px;">
+            <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--gray);margin-bottom:3px;"><span>You: 653</span><span>Gap: <strong style="color:var(--rose);">131 pts</strong></span><span>Target: 784</span></div>
+            <div class="prog-track"><div class="prog-fill" style="width:83%;background:linear-gradient(90deg,var(--blue3),var(--gold));"></div></div>
+          </div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:10px;color:var(--gray);margin-bottom:2px;">To beat #1</div>
+          <div style="font-size:20px;font-weight:900;color:var(--rose);">131</div>
+          <div style="font-size:9px;color:var(--gray);">points needed</div>
+          <button class="btn btn-sm" style="background:rgba(245,158,11,0.15);color:var(--gold);border:1px solid rgba(245,158,11,0.3);margin-top:6px;font-size:10px;" onclick="goTo('s-upload')">How? →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- YOU IN CENTRE — #23 / YOU / #25 -->
+    <div style="margin:0 16px 16px;">
+      <div style="font-size:10px;color:var(--gray);font-weight:700;letter-spacing:1px;margin-bottom:10px;">YOUR POSITION IN THE PACK</div>
+      <div style="position:relative;">
+        <div style="position:absolute;top:44px;left:0;right:0;height:2px;background:linear-gradient(90deg,rgba(255,255,255,0.04),rgba(37,99,235,0.4),rgba(255,255,255,0.04));z-index:0;"></div>
+        <div style="display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:8px;position:relative;z-index:1;">
+
+          <!-- ABOVE #23 -->
+          <div style="background:var(--card2);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:12px 10px;text-align:center;">
+            <div style="font-size:9px;color:var(--gray);font-weight:700;letter-spacing:0.5px;margin-bottom:6px;">⬆ ABOVE YOU</div>
+            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&q=80" style="width:44px;height:44px;border-radius:50%;border:2px solid rgba(255,255,255,0.15);object-fit:cover;margin:0 auto 6px;">
+            <div style="font-size:11px;font-weight:700;color:white;">Dr. Meena R</div>
+            <div style="font-size:9px;color:var(--gray);">Mechanical</div>
+            <div style="font-size:9px;color:var(--gray);margin-top:1px;">Silver Faculty</div>
+            <div style="font-size:16px;font-weight:800;color:var(--blue3);margin-top:6px;">667</div>
+            <div style="background:rgba(37,99,235,0.1);border-radius:8px;padding:3px 6px;margin-top:6px;">
+              <div style="font-size:9px;color:var(--gray);">Rank</div>
+              <div style="font-size:14px;font-weight:800;color:var(--blue3);">#23</div>
+            </div>
+            <div style="font-size:10px;color:var(--rose);margin-top:6px;font-weight:600;">14 pts ahead</div>
+            <button class="btn btn-sm" style="width:100%;margin-top:8px;background:rgba(37,99,235,0.15);color:var(--blue3);border:1px solid rgba(37,99,235,0.3);font-size:10px;" onclick="goTo('s-upload')">Close gap</button>
+          </div>
+
+          <!-- YOU #24 — CENTRE -->
+          <div style="background:linear-gradient(160deg,#1A3A7A,#1E4FBE);border:2px solid var(--blue3);border-radius:14px;padding:12px 10px;text-align:center;box-shadow:0 0 28px rgba(37,99,235,0.4);">
+            <div style="font-size:9px;color:var(--blue3);font-weight:800;letter-spacing:0.5px;margin-bottom:6px;">⭐ YOU</div>
+            <div style="position:relative;display:inline-block;">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" style="width:52px;height:52px;border-radius:50%;border:3px solid var(--gold);object-fit:cover;margin:0 auto 6px;box-shadow:0 0 12px rgba(245,158,11,0.5);">
+              <div style="position:absolute;bottom:-2px;right:-2px;width:14px;height:14px;background:var(--green);border-radius:50%;border:2px solid var(--navy);"></div>
+            </div>
+            <div style="font-size:12px;font-weight:800;color:white;margin-top:4px;">Dr. Kishore</div>
+            <div style="font-size:9px;color:rgba(255,255,255,0.6);">Director · Core Engg</div>
+            <div style="font-size:9px;color:var(--gold);margin-top:1px;">Silver Faculty</div>
+            <div style="font-size:20px;font-weight:900;color:var(--gold);margin-top:6px;">653</div>
+            <div style="background:rgba(245,158,11,0.15);border-radius:8px;padding:3px 6px;margin-top:6px;border:1px solid rgba(245,158,11,0.3);">
+              <div style="font-size:9px;color:var(--gold);">Your Rank</div>
+              <div style="font-size:18px;font-weight:900;color:var(--gold);">#24</div>
+            </div>
+            <div style="font-size:10px;color:var(--green);margin-top:6px;font-weight:600;">↑ +3 this week</div>
+            <button class="btn btn-gold btn-sm" style="width:100%;margin-top:8px;font-size:10px;" onclick="goTo('s-upload')">Add points →</button>
+          </div>
+
+          <!-- BELOW #25 -->
+          <div style="background:var(--card2);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:12px 10px;text-align:center;">
+            <div style="font-size:9px;color:var(--gray);font-weight:700;letter-spacing:0.5px;margin-bottom:6px;">⬇ BELOW YOU</div>
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80" style="width:44px;height:44px;border-radius:50%;border:2px solid rgba(255,255,255,0.15);object-fit:cover;margin:0 auto 6px;">
+            <div style="font-size:11px;font-weight:700;color:white;">Dr. Aditya K</div>
+            <div style="font-size:9px;color:var(--gray);">RAI Dept</div>
+            <div style="font-size:9px;color:var(--gray);margin-top:1px;">Bronze Faculty</div>
+            <div style="font-size:16px;font-weight:800;color:var(--blue3);margin-top:6px;">641</div>
+            <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:3px 6px;margin-top:6px;">
+              <div style="font-size:9px;color:var(--gray);">Rank</div>
+              <div style="font-size:14px;font-weight:800;color:var(--gray);">#25</div>
+            </div>
+            <div style="font-size:10px;color:var(--green);margin-top:6px;font-weight:600;">12 pts behind</div>
+            <div style="font-size:9px;color:var(--gray);margin-top:8px;line-height:1.3;">Keep your lead — they are climbing!</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- HOW TO MOVE UP -->
+    <div style="margin:0 16px 16px;background:rgba(37,99,235,0.08);border:1px solid rgba(37,99,235,0.25);border-radius:var(--r);padding:14px 16px;">
+      <div style="font-size:11px;color:var(--blue3);font-weight:700;margin-bottom:8px;">🚀 HOW TO REACH #23 (Dr. Meena R)</div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <div style="display:flex;align-items:center;gap:8px;"><div style="width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;"></div><div style="font-size:12px;">Upload <strong>FDP Certificate</strong> → +15 pts</div></div>
+        <div style="display:flex;align-items:center;gap:8px;"><div style="width:8px;height:8px;border-radius:50%;background:var(--blue3);flex-shrink:0;"></div><div style="font-size:12px;">Log <strong>4 more mentoring sessions</strong> → +8 pts</div></div>
+      </div>
+      <div style="margin-top:10px;font-size:11px;color:var(--green);font-weight:700;">✅ Do both today → reach #23 tomorrow morning</div>
+      <button class="btn btn-primary btn-sm" style="margin-top:10px;" onclick="goTo('s-upload')">Start Now →</button>
+    </div>
+
+    <!-- FULL LIST -->
+    <div class="section-label">FULL RANKINGS — DEPT (50 FACULTY)</div>
+    <div class="card" style="padding:0;overflow:hidden;">
+      <div style="background:rgba(245,158,11,0.06);border-bottom:1px solid rgba(255,255,255,0.06);">
+        <div class="rank-item">
+          <div class="rank-num top">1</div>
+          <img class="rank-avatar" src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=100&q=80" alt="">
+          <div class="rank-info"><div class="rank-name">Dr. Lignesh Kumar 🎯 <span style="font-size:10px;color:var(--gold);">(Your Target)</span></div><div class="rank-dept">ECE · Gold Faculty</div></div>
+          <div style="text-align:right;"><div class="rank-score" style="color:var(--gold);">784</div><div class="rank-tier">🥇 GOLD</div></div>
+        </div>
+        <div class="rank-item">
+          <div class="rank-num top">2</div>
+          <img class="rank-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80" alt="">
+          <div class="rank-info"><div class="rank-name">Dr. Ranjitha S</div><div class="rank-dept">Civil · Gold Faculty · ↑+2</div></div>
+          <div style="text-align:right;"><div class="rank-score">751</div><div class="rank-tier">🥇 GOLD</div></div>
+        </div>
+        <div class="rank-item">
+          <div class="rank-num">3</div>
+          <img class="rank-avatar" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=100&q=80" alt="">
+          <div class="rank-info"><div class="rank-name">Dr. Raja Sekhar</div><div class="rank-dept">Mechanical · Silver Faculty</div></div>
+          <div style="text-align:right;"><div class="rank-score">734</div><div class="rank-tier">🥈 SILVER</div></div>
+        </div>
+      </div>
+      <div style="padding:10px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,0.05);">
+        <div style="flex:1;height:1px;background:rgba(255,255,255,0.06);"></div>
+        <div style="font-size:11px;color:var(--gray);font-weight:600;">· · · Ranks 4 – 22 · · ·</div>
+        <div style="flex:1;height:1px;background:rgba(255,255,255,0.06);"></div>
+      </div>
+      <div class="rank-item">
+        <div class="rank-num">23</div>
+        <img class="rank-avatar" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&q=80" alt="">
+        <div class="rank-info"><div class="rank-name">Dr. Meena R <span style="font-size:10px;color:var(--blue3);">⬆ Just ahead</span></div><div class="rank-dept">Mechanical · Silver Faculty</div></div>
+        <div style="text-align:right;"><div class="rank-score">667</div><div class="rank-tier" style="color:var(--blue3);">+14 pts</div></div>
+      </div>
+      <div class="rank-item me" style="background:linear-gradient(90deg,rgba(37,99,235,0.15),rgba(37,99,235,0.05));border-left:3px solid var(--gold);">
+        <div class="rank-num top" style="color:var(--gold);font-size:16px;">24</div>
+        <img class="rank-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="" style="border-color:var(--gold);box-shadow:0 0 10px rgba(245,158,11,0.4);">
+        <div class="rank-info">
+          <div class="rank-name">Dr. Kishore Budda 👈 <span class="badge badge-gold" style="font-size:9px;">YOU</span></div>
+          <div class="rank-dept">Director · Core Engineering · ↑+3 this week</div>
+        </div>
+        <div style="text-align:right;"><div class="rank-score" style="color:var(--gold);font-size:20px;">653</div><div class="rank-tier" style="color:var(--gold);">Silver ⭐</div></div>
+      </div>
+      <div class="rank-item">
+        <div class="rank-num">25</div>
+        <img class="rank-avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80" alt="">
+        <div class="rank-info"><div class="rank-name">Dr. Aditya Kumar <span style="font-size:10px;color:var(--rose);">⬇ Just behind</span></div><div class="rank-dept">RAI · Bronze Faculty · ↑+1</div></div>
+        <div style="text-align:right;"><div class="rank-score">641</div><div class="rank-tier" style="color:var(--rose);">-12 pts</div></div>
+      </div>
+      <div style="padding:10px 16px;display:flex;align-items:center;gap:8px;">
+        <div style="flex:1;height:1px;background:rgba(255,255,255,0.06);"></div>
+        <div style="font-size:11px;color:var(--gray);font-weight:600;">· · · Ranks 26 – 50 · · ·</div>
+        <div style="flex:1;height:1px;background:rgba(255,255,255,0.06);"></div>
+      </div>
+    </div>
+
+  </div>
+  <div class="bottom-nav">
+    <button class="nav-item" onclick="goTo('s-home')"><span class="nav-icon">🏠</span><span class="nav-label">Home</span></button>
+    <button class="nav-item active" onclick="goTo('s-leaderboard')"><span class="nav-icon">🏆</span><span class="nav-label">Rank</span></button>
+    <button class="nav-item" onclick="goTo('s-clusters')"><span class="nav-icon">📊</span><span class="nav-label">My Score</span></button>
+    <button class="nav-item" onclick="goTo('s-upload')"><span class="nav-icon">⬆️</span><span class="nav-label">Upload</span></button>
+    <button class="nav-item" onclick="goTo('s-profile')"><span class="nav-icon">👤</span><span class="nav-label">Profile</span></button>
+  </div>
+</div>
+     SCREEN 5 — MY SCORE (9 Clusters)
+═══════════════════════════════════════════════════════════ -->
+<div id="s-clusters" class="screen">
+  <div class="topbar">
+    <div class="topbar-left"><button class="btn btn-ghost btn-sm" onclick="goTo('s-home')">← Back</button></div>
+    <div style="font-size:16px;font-weight:700;">📊 My FEI Score</div>
+    <div class="topbar-right"><div class="avatar-sm" onclick="goTo('s-profile')"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt=""></div></div>
+  </div>
+  <div class="page-content">
+
+    <!-- Score overview -->
+    <div style="background:linear-gradient(135deg,#112952,#1A4FBE);padding:20px 16px;margin-bottom:0;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+        <div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.6);">Total PRAJNA Score</div>
+          <div style="font-size:40px;font-weight:900;">653<span style="font-size:18px;color:var(--gold);font-weight:600;">/1000</span></div>
+          <div class="badge badge-gold">Silver Faculty · #3 in Department</div>
+        </div>
+        <div>
+          <svg width="80" height="80" viewBox="0 0 80 80">
+            <circle cx="40" cy="40" r="34" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="5"/>
+            <circle cx="40" cy="40" r="34" fill="none" stroke="var(--gold)" stroke-width="5" stroke-dasharray="214" stroke-dashoffset="81" stroke-linecap="round" transform="rotate(-90 40 40)"/>
+          </svg>
+          <div style="text-align:center;font-size:11px;color:var(--gold);font-weight:700;margin-top:-48px;">65.3%</div>
+        </div>
+      </div>
+      <div class="prog-track" style="height:8px;margin-bottom:6px;">
+        <div class="prog-fill" style="width:65.3%;background:linear-gradient(90deg,var(--blue3),var(--gold));"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:10px;color:rgba(255,255,255,0.5);">
+        <span>Silver (550)</span><span style="color:var(--gold);">You: 653</span><span>Gold (700)</span>
+      </div>
+    </div>
+
+    <div class="section-label">9 CLUSTERS — CLICK TO UPLOAD</div>
+    <div class="card" style="padding:0;overflow:hidden;">
+
+      <!-- cluster rows -->
+      <script>
+        const clusterData = [
+          {icon:"📚",name:"Teaching & OBE",score:211,max:240,col:"#3B82F6"},
+          {icon:"🎓",name:"Student Success",score:95,max:150,col:"#7C3AED"},
+          {icon:"🔬",name:"Research & Grants",score:142,max:200,col:"#10B981"},
+          {icon:"💡",name:"Innovation & IP",score:28,max:80,col:"#F59E0B"},
+          {icon:"🏭",name:"Industry Engagement",score:44,max:80,col:"#F43F5E"},
+          {icon:"🏛️",name:"Governance & QA",score:61,max:90,col:"#06B6D4"},
+          {icon:"📈",name:"Prof. Development",score:42,max:70,col:"#BA7517"},
+          {icon:"🌍",name:"Internationalisation",score:18,max:60,col:"#8B5CF6"},
+          {icon:"✨",name:"PRAJNA Score",score:12,max:30,col:"#F59E0B"},
+        ];
+      </script>
+
+      <div id="cluster-list-main"></div>
+    </div>
+
+  </div>
+  <div class="bottom-nav">
+    <button class="nav-item" onclick="goTo('s-home')"><span class="nav-icon">🏠</span><span class="nav-label">Home</span></button>
+    <button class="nav-item" onclick="goTo('s-leaderboard')"><span class="nav-icon">🏆</span><span class="nav-label">Rank</span></button>
+    <button class="nav-item active" onclick="goTo('s-clusters')"><span class="nav-icon">📊</span><span class="nav-label">My Score</span></button>
+    <button class="nav-item" onclick="goTo('s-upload')"><span class="nav-icon">⬆️</span><span class="nav-label">Upload</span></button>
+    <button class="nav-item" onclick="goTo('s-profile')"><span class="nav-icon">👤</span><span class="nav-label">Profile</span></button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SCREEN 6 — UPLOAD PARAMETER
+═══════════════════════════════════════════════════════════ -->
+<div id="s-upload" class="screen">
+  <div class="topbar">
+    <div class="topbar-left"><button class="btn btn-ghost btn-sm" onclick="goTo('s-home')">← Back</button></div>
+    <div style="font-size:16px;font-weight:700;">⬆️ Add Achievement</div>
+    <div class="topbar-right"></div>
+  </div>
+  <div class="page-content">
+
+    <!-- Prajna encouragement -->
+    <div style="margin:16px 16px 8px;background:linear-gradient(135deg,rgba(37,99,235,0.12),rgba(124,58,237,0.08));border:1px solid rgba(37,99,235,0.2);border-radius:var(--r2);padding:14px;display:flex;gap:12px;align-items:center;">
+      <div style="font-size:28px;">👩</div>
+      <div>
+        <div style="font-size:11px;color:var(--gold);font-weight:700;">Prajna says</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.9);margin-top:2px;">Every entry you make <strong>teaches me more about you</strong> — and I guide you better! 🌟</div>
+      </div>
+    </div>
+
+    <!-- Category picker -->
+    <div class="section-label">SELECT CLUSTER</div>
+    <div class="input-group">
+      <select class="input-field">
+        <option>📚 Teaching & OBE</option>
+        <option>🎓 Student Success & Mentoring</option>
+        <option selected>📈 Professional Development</option>
+        <option>🔬 Research & Publications</option>
+        <option>💡 Innovation & IP</option>
+        <option>🏭 Industry Engagement</option>
+        <option>🏛️ Governance & Quality Assurance</option>
+        <option>🌍 Internationalisation</option>
+        <option>✨ PRAJNA Score</option>
+      </select>
+    </div>
+
+    <div class="input-group">
+      <div class="input-label">Activity / Parameter</div>
+      <select class="input-field">
+        <option selected>FDP Attended (≥5 days) — 15 pts</option>
+        <option>FDP Attended (1–4 days) — 8 pts</option>
+        <option>NPTEL / SWAYAM Certification — 10 pts</option>
+        <option>AI / Data Science Upskilling — 10 pts</option>
+        <option>Professional Body Membership — 5 pts</option>
+      </select>
+    </div>
+
+    <!-- Score preview -->
+    <div style="margin:0 16px 16px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);border-radius:var(--r);padding:14px;display:flex;align-items:center;gap:12px;">
+      <div style="font-size:28px;">🎯</div>
+      <div style="flex:1;">
+        <div style="font-size:12px;color:var(--green);font-weight:700;">POINTS YOU WILL EARN</div>
+        <div style="font-size:22px;font-weight:900;color:var(--green);">+15 pts</div>
+        <div style="font-size:11px;color:var(--gray);">New score: 668 · Moves you to #2 in dept 🚀</div>
+      </div>
+    </div>
+
+    <div class="input-group">
+      <div class="input-label">Event Name</div>
+      <input class="input-field" placeholder="e.g. AICTE FDP on AI in Education">
+    </div>
+    <div class="input-group">
+      <div class="input-label">Organising Institution</div>
+      <input class="input-field" placeholder="e.g. IIT Bombay / AICTE">
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px;margin-bottom:16px;">
+      <div>
+        <div class="input-label" style="margin-bottom:6px;">From Date</div>
+        <input class="input-field" type="date" value="2026-03-10">
+      </div>
+      <div>
+        <div class="input-label" style="margin-bottom:6px;">To Date</div>
+        <input class="input-field" type="date" value="2026-03-14">
+      </div>
+    </div>
+
+    <div class="section-label">UPLOAD CERTIFICATE</div>
+    <div class="upload-zone" onclick="alert('File picker opens here in the live app')">
+      <div style="font-size:40px;margin-bottom:12px;">📎</div>
+      <div style="font-size:15px;font-weight:700;margin-bottom:6px;">Tap to upload certificate</div>
+      <div style="font-size:12px;color:var(--gray);">PDF, JPG or PNG · Max 5MB · Virus-scanned automatically</div>
+      <div style="margin-top:12px;" class="badge badge-blue">Auto-verified by HR within 7 days</div>
+    </div>
+
+    <div style="padding:0 16px 16px;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <button class="btn btn-ghost" onclick="goTo('s-home')">Save Draft</button>
+      <button class="btn btn-primary" onclick="showUploadSuccess()">Submit for Approval</button>
+    </div>
+
+  </div>
+  <div class="bottom-nav">
+    <button class="nav-item" onclick="goTo('s-home')"><span class="nav-icon">🏠</span><span class="nav-label">Home</span></button>
+    <button class="nav-item" onclick="goTo('s-leaderboard')"><span class="nav-icon">🏆</span><span class="nav-label">Rank</span></button>
+    <button class="nav-item" onclick="goTo('s-clusters')"><span class="nav-icon">📊</span><span class="nav-label">My Score</span></button>
+    <button class="nav-item active" onclick="goTo('s-upload')"><span class="nav-icon">⬆️</span><span class="nav-label">Upload</span></button>
+    <button class="nav-item" onclick="goTo('s-profile')"><span class="nav-icon">👤</span><span class="nav-label">Profile</span></button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SCREEN 7 — PROFILE
+═══════════════════════════════════════════════════════════ -->
+<div id="s-profile" class="screen">
+  <div class="topbar">
+    <div class="topbar-left"><button class="btn btn-ghost btn-sm" onclick="goTo('s-home')">← Back</button></div>
+    <div style="font-size:16px;font-weight:700;">👤 My Profile</div>
+    <div class="topbar-right"></div>
+  </div>
+  <div class="page-content">
+
+    <!-- Profile hero -->
+    <div style="position:relative;margin-bottom:0;">
+      <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=600&q=80" style="width:100%;height:160px;object-fit:cover;">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,var(--navy) 0%,transparent 60%);"></div>
+      <div style="position:absolute;bottom:0;left:0;right:0;padding:16px;display:flex;align-items:flex-end;gap:14px;">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80" style="width:72px;height:72px;border-radius:50%;border:3px solid var(--gold);object-fit:cover;flex-shrink:0;">
+        <div>
+          <div style="font-size:18px;font-weight:800;">Dr. Kishore Budda</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.7);">Director – Core Engineering</div>
+          <div style="font-size:11px;color:var(--gold);">GITAM University, Bengaluru</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Profile completeness -->
+    <div style="margin:16px 16px 8px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);border-radius:var(--r);padding:14px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <div style="font-size:12px;color:var(--gold);font-weight:700;">PROFILE COMPLETENESS</div>
+        <div style="font-size:14px;font-weight:800;color:var(--gold);">78%</div>
+      </div>
+      <div class="prog-track"><div class="prog-fill" style="width:78%;background:var(--gold);"></div></div>
+      <div style="font-size:11px;color:var(--gray);margin-top:6px;">Complete ORCID, Scopus ID, and FDP history to reach 100% (+10 pts)</div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stat-row">
+      <div class="stat-card"><div class="stat-val" style="color:var(--gold);">653</div><div class="stat-lbl">FEI Score</div></div>
+      <div class="stat-card"><div class="stat-val" style="color:var(--blue3);">#3</div><div class="stat-lbl">Dept Rank</div></div>
+      <div class="stat-card"><div class="stat-val" style="color:var(--green);">17yr</div><div class="stat-lbl">Experience</div></div>
+    </div>
+
+    <!-- Tier badge -->
+    <div style="margin:0 16px 16px;background:linear-gradient(135deg,rgba(37,99,235,0.15),rgba(124,58,237,0.1));border:1px solid rgba(37,99,235,0.3);border-radius:var(--r2);padding:16px;display:flex;align-items:center;gap:14px;">
+      <div style="font-size:40px;">🥈</div>
+      <div>
+        <div style="font-size:11px;color:var(--gray);">CURRENT TIER</div>
+        <div style="font-size:20px;font-weight:800;color:var(--blue3);">Silver Faculty</div>
+        <div style="font-size:12px;color:var(--gray);margin-top:4px;">47 pts to <span style="color:var(--gold);font-weight:700;">Gold Faculty</span> 🚀</div>
+      </div>
+    </div>
+
+    <!-- Quick links -->
+    <div class="section-label">ACHIEVEMENTS</div>
+    <div class="photo-grid">
+      <div class="photo-card" onclick="goTo('s-clusters')">
+        <img src="https://images.unsplash.com/photo-1532094349884-543559244ee6?w=400&q=80" alt="">
+        <div class="photo-card-overlay"><div class="photo-card-label">7 Scopus Papers</div></div>
+      </div>
+      <div class="photo-card">
+        <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&q=80" alt="">
+        <div class="photo-card-overlay"><div class="photo-card-label">H-Index: 6</div></div>
+      </div>
+      <div class="photo-card">
+        <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=400&q=80" alt="">
+        <div class="photo-card-overlay"><div class="photo-card-label">4.2 Feedback</div></div>
+      </div>
+      <div class="photo-card">
+        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&q=80" alt="">
+        <div class="photo-card-overlay"><div class="photo-card-label">3 MoUs Active</div></div>
+      </div>
+    </div>
+
+    <!-- Sign out & EOD -->
+    <div style="padding:0 16px 16px;display:grid;gap:10px;">
+      <button class="btn btn-gold btn-full" onclick="goTo('s-eod')">🌙 End My Day</button>
+      <button class="btn btn-ghost btn-full" onclick="goTo('s-login')">Sign Out</button>
+    </div>
+
+  </div>
+  <div class="bottom-nav">
+    <button class="nav-item" onclick="goTo('s-home')"><span class="nav-icon">🏠</span><span class="nav-label">Home</span></button>
+    <button class="nav-item" onclick="goTo('s-leaderboard')"><span class="nav-icon">🏆</span><span class="nav-label">Rank</span></button>
+    <button class="nav-item" onclick="goTo('s-clusters')"><span class="nav-icon">📊</span><span class="nav-label">My Score</span></button>
+    <button class="nav-item" onclick="goTo('s-upload')"><span class="nav-icon">⬆️</span><span class="nav-label">Upload</span></button>
+    <button class="nav-item active" onclick="goTo('s-profile')"><span class="nav-icon">👤</span><span class="nav-label">Profile</span></button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SCREEN 8 — NOTIFICATIONS
+═══════════════════════════════════════════════════════════ -->
+<div id="s-notif" class="screen">
+  <div class="topbar">
+    <div class="topbar-left"><button class="btn btn-ghost btn-sm" onclick="goTo('s-home')">← Back</button></div>
+    <div style="font-size:16px;font-weight:700;">🔔 Notifications</div>
+    <div class="topbar-right"><button class="btn btn-ghost btn-sm">Mark all read</button></div>
+  </div>
+  <div class="page-content" style="padding-bottom:30px;">
+    <div class="section-label">TODAY</div>
+    <div class="card" style="padding:0;overflow:hidden;">
+      <div class="notif-item" onclick="goTo('s-upload')">
+        <div class="notif-icon" style="background:rgba(16,185,129,0.15);">🎉</div>
+        <div class="notif-text">
+          <div class="notif-title">Publication Approved!</div>
+          <div class="notif-sub">Your Scopus paper has been approved by RDC. +20 pts added to your score!</div>
+          <div class="notif-time">2 hours ago</div>
+        </div>
+        <div class="notif-unread"></div>
+      </div>
+      <div class="notif-item" onclick="goTo('s-upload')">
+        <div class="notif-icon" style="background:rgba(245,158,11,0.15);">📋</div>
+        <div class="notif-text">
+          <div class="notif-title">FDP Certificate Pending</div>
+          <div class="notif-sub">Prajna: Upload your AICTE FDP certificate to earn 15 pts and move to #2!</div>
+          <div class="notif-time">4 hours ago</div>
+        </div>
+        <div class="notif-unread"></div>
+      </div>
+      <div class="notif-item">
+        <div class="notif-icon" style="background:rgba(37,99,235,0.15);">🏆</div>
+        <div class="notif-text">
+          <div class="notif-title">Rank Update — You moved up!</div>
+          <div class="notif-sub">You climbed from #5 to #3 in your department this week. Keep going!</div>
+          <div class="notif-time">Yesterday</div>
+        </div>
+      </div>
+    </div>
+    <div class="section-label">THIS WEEK</div>
+    <div class="card" style="padding:0;overflow:hidden;">
+      <div class="notif-item">
+        <div class="notif-icon" style="background:rgba(244,63,94,0.15);">⚠️</div>
+        <div class="notif-text">
+          <div class="notif-title">APAR Deadline — 5 Days Left</div>
+          <div class="notif-sub">Submit your annual self-appraisal before 31 March to avoid escalation to HoD</div>
+          <div class="notif-time">2 days ago</div>
+        </div>
+        <div class="notif-unread"></div>
+      </div>
+      <div class="notif-item">
+        <div class="notif-icon" style="background:rgba(124,58,237,0.15);">👥</div>
+        <div class="notif-text">
+          <div class="notif-title">Mentoring Log Reminder</div>
+          <div class="notif-sub">You have 4 mentoring sessions logged. 4 more needed to score full 15 pts.</div>
+          <div class="notif-time">3 days ago</div>
+        </div>
+      </div>
+      <div class="notif-item">
+        <div class="notif-icon" style="background:rgba(6,182,212,0.15);">🌍</div>
+        <div class="notif-text">
+          <div class="notif-title">International Paper Opportunity</div>
+          <div class="notif-sub">DST-SERB call for proposals open — your research area matches. Deadline: 15 May</div>
+          <div class="notif-time">4 days ago</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SCREEN 9 — END OF DAY SIGN-OFF
+═══════════════════════════════════════════════════════════ -->
+<div id="s-eod" class="screen">
+  <div class="eod-screen">
+    <div class="eod-hero">
+      <div class="eod-moon">🌙</div>
+      <div style="font-size:24px;font-weight:800;margin-bottom:8px;">Great work today, Dr. Kishore!</div>
+      <div style="font-size:14px;color:rgba(255,255,255,0.7);">Here is your daily reflection from Prajna</div>
+    </div>
+
+    <!-- Prajna sign-off message -->
+    <div style="margin:0 16px 16px;background:linear-gradient(135deg,rgba(37,99,235,0.12),rgba(124,58,237,0.08));border:1px solid rgba(124,58,237,0.3);border-radius:var(--r2);padding:20px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+        <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--blue2),var(--purple));display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">👩</div>
+        <div>
+          <div style="font-size:12px;color:var(--gold);font-weight:700;">PRAJNA — END OF DAY REFLECTION</div>
+          <div style="font-size:11px;color:var(--gray);">5:30 PM · 28 March 2026</div>
+        </div>
+      </div>
+      <div style="font-size:14px;color:rgba(255,255,255,0.9);line-height:1.7;">
+        Today you completed <strong style="color:var(--blue3);">2 classes</strong>, approved <strong style="color:var(--green);">1 student publication</strong>, and logged <strong style="color:var(--gold);">1 mentoring session</strong>.<br><br>
+        Your score today: <strong style="color:var(--gold);">653 pts</strong> — up from 638 this morning. That is <strong style="color:var(--green);">+15 pts today alone</strong>. 🎉<br><br>
+        Tomorrow's top priority: <strong style="color:var(--blue3);">Upload your FDP certificate</strong> — it will push you to <strong style="color:var(--gold);">#2 in your department</strong>.<br><br>
+        <span style="color:rgba(255,255,255,0.6);font-size:13px;">You are doing great work, Dr. Kishore. Rest well. See you tomorrow morning.</span>
+      </div>
+    </div>
+
+    <!-- Today's summary -->
+    <div class="section-label">TODAY'S SUMMARY</div>
+    <div class="stat-row">
+      <div class="stat-card"><div class="stat-val" style="color:var(--green);">+15</div><div class="stat-lbl">Points Earned</div></div>
+      <div class="stat-card"><div class="stat-val" style="color:var(--blue3);">3</div><div class="stat-lbl">Activities Done</div></div>
+      <div class="stat-card"><div class="stat-val" style="color:var(--gold);">#3</div><div class="stat-lbl">Current Rank</div></div>
+    </div>
+
+    <!-- Tomorrow focus -->
+    <div style="margin:0 16px 16px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:var(--r);padding:14px;">
+      <div style="font-size:11px;color:var(--gold);font-weight:700;margin-bottom:6px;">☀️ TOMORROW'S PRIORITY</div>
+      <div style="font-size:14px;font-weight:700;">Upload FDP Certificate</div>
+      <div style="font-size:12px;color:var(--gray);margin-top:4px;">+15 pts · Moves you to #2 · Takes 2 minutes</div>
+    </div>
+
+    <!-- Rate your day -->
+    <div style="margin:0 16px 20px;text-align:center;">
+      <div style="font-size:12px;color:var(--gray);margin-bottom:10px;">How was your day?</div>
+      <div style="display:flex;justify-content:center;gap:12px;font-size:32px;">
+        <span style="cursor:pointer;" onclick="rateDayDone()">😔</span>
+        <span style="cursor:pointer;" onclick="rateDayDone()">😐</span>
+        <span style="cursor:pointer;" onclick="rateDayDone()">🙂</span>
+        <span style="cursor:pointer;" onclick="rateDayDone()">😊</span>
+        <span style="cursor:pointer;" onclick="rateDayDone()">🤩</span>
+      </div>
+    </div>
+
+    <div style="padding:0 16px 40px;display:grid;gap:10px;">
+      <button class="btn btn-gold btn-full" onclick="goTo('s-home')">Back to Dashboard</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     UPLOAD SUCCESS TOAST
+═══════════════════════════════════════════════════════════ -->
+<div id="toast" style="position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--green);color:white;padding:12px 24px;border-radius:99px;font-size:14px;font-weight:700;display:none;z-index:500;box-shadow:0 8px 24px rgba(16,185,129,0.4);">
+  ✅ Submitted! Awaiting HoD approval · +15 pts pending
+</div>
+
+<!-- ─── JS ─────────────────────────────────────────────────── -->
+<script>
+// Screen navigation
+function goTo(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.getElementById(id).scrollTop = 0;
+}
+
+// Prajna toggle
+function togglePrajna(id) {
+  const box = document.getElementById(id);
+  if (box.style.display === 'none' || box.style.display === '') {
+    box.style.display = 'block';
+    box.classList.add('show');
+  } else {
+    box.style.display = 'none';
+  }
+}
+
+// Upload success
+function showUploadSuccess() {
+  const toast = document.getElementById('toast');
+  toast.style.display = 'block';
+  setTimeout(() => { toast.style.display = 'none'; goTo('s-home'); }, 2500);
+}
+
+// Rate day
+function rateDayDone() {
+  alert('Thanks for your reflection! Prajna will remember this and calibrate tomorrow\'s guidance. Rest well! 🌙');
+}
+
+// Build cluster list dynamically
+document.addEventListener('DOMContentLoaded', () => {
+  const container = document.getElementById('cluster-list-main');
+  if (!container) return;
+  clusterData.forEach((cl, i) => {
+    const pct = Math.round((cl.score / cl.max) * 100);
+    const div = document.createElement('div');
+    div.className = 'cluster-item';
+    div.onclick = () => goTo('s-upload');
+    div.innerHTML = `
+      <div class="cluster-icon" style="background:${cl.col}22;">${cl.icon}</div>
+      <div class="cluster-info">
+        <div class="cluster-name">${cl.name}</div>
+        <div class="cluster-prog">
+          <div class="prog-track" style="flex:1;">
+            <div class="prog-fill" style="width:${pct}%;background:${cl.col};"></div>
+          </div>
+          <div class="cluster-pct">${pct}%</div>
+        </div>
+      </div>
+      <div class="cluster-pts" style="color:${cl.col};">${cl.score}<span style="font-size:10px;color:var(--gray);font-weight:400;">/${cl.max}</span></div>
+    `;
+    container.appendChild(div);
+  });
+});
+</script>
+</body>
+</html>

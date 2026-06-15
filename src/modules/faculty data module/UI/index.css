@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@theme {
+  --color-gitam-green: #007367;
+  --color-gitam-antique-white: #F4E4C9;
+  --color-gitam-dark-green: #004740;
+  --color-gitam-light-green: #8BCBB7;
+  --color-gitam-antique-gold: #A58255;
+  --color-gitam-beige: #CCBA8D;
+  --color-gitam-coral: #DD736E;
+  
+  --font-display: Inter, system-ui, sans-serif;
+  --font-sans: Inter, system-ui, sans-serif;
+
+  --animate-scale-up: scale-up 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+  @keyframes scale-up {
+    from {
+      transform: scale(0.95);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}
+
+@layer base {
+  body {
+    background-color: #030712; /* bg-gray-950 equivalent */
+    color: #f3f4f6; /* text-gray-100 equivalent */
+    font-family: var(--font-sans);
+  }
+}
+
