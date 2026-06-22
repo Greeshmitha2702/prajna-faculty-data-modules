@@ -175,200 +175,91 @@ src/modules/research/
 
 ## 5. Data Model
 
-### Entities
+### Table Name: prajna-research
 
-**Entity 1 — Publications**
-
-`Table: research-publications
+Publications:
 PK = CAMPUS#<campus>
-SK = PUB#YEAR#<year>#FACULTY#<facultyId>`
+SK = PUB#<year>#FACULTY#<facultyId>#<publicationId>
+entityType = "PUBLICATION"
 
-Fields:
+Grants:
+PK = CAMPUS#<campus>
+SK = GRANT#FACULTY#<facultyId>#<grantId>
+entityType = "GRANT"
 
-- publicationId: string (unique ID)
-- facultyId: string (from JWT)
-- campus: string (from JWT)
-- department: string (from JWT)
-- school: string (from JWT)
-- role: string (from JWT)
-- moduleId: string ("research")
-- doi: string (optional)
-- title: string
-- authors: array (see PublicationAuthors)
-- year: number
-- journalName: string
-- abstract: string
-- publisherName: string
-- publicationType: enum (SCI | SCOPUS | CONFERENCE)
-- proofDocumentUrl: string (S3 URL)
-- approvalStatus: string (PENDING | APPROVED | REJECTED)
-- approvalRequestId: string
-- fingerprintHash: string (for no-DOI duplicate detection)
-- createdAt: string (UTC timestamp)
-- updatedAt: string (UTC timestamp)
-- createdBy: string (facultyId)
-- updatedBy: string (facultyId)
-- hodReviewedAt: string
-- directorReviewedAt: string
-- finalApprovedAt: string
-- entityType: string ("PUBLICATION")
+Patents:
+PK = CAMPUS#<campus>
+SK = PATENT#FACULTY#<facultyId>#<patentId>
+entityType = "PATENT"
 
----
+Scholars:
+PK = CAMPUS#<campus>
+SK = SCHOLAR#FACULTY#<facultyId>#<scholarId>
+entityType = "SCHOLAR"
 
-**Entity 2 — Publication Authors**
-
-`Table: research-publication-authors
+Publication Authors:
 PK = PUB#<publicationId>
 SK = AUTHOR#<authorOrder>
+entityType = "PUBLICATION_AUTHOR"
 
-Fields:
-- authorId: string
-- publicationId: string
-- facultyId: string (if internal author)
-- authorName: string
-- authorOrder: number
-- isExternal: boolean`
-
----
-
-**Entity 3 — Grants**
-
-`Table: research-grants
-PK = CAMPUS#<campus>
-SK = GRANT#FACULTY#<facultyId>`
-
-Fields:
-
-- grantId: string (unique ID)
-- facultyId: string (from JWT)
-- campus: string (from JWT)
-- department: string (from JWT)
-- school: string (from JWT)
-- role: string (from JWT)
-- moduleId: string ("research")
-- projectTitle: string
-- fundingAgency: string
-- sanctionedAmount: number
-- startDate: string
-- endDate: string
-- status: enum (APPLIED | APPROVED | ONGOING | COMPLETED)
-- approvalStatus: string (PENDING | APPROVED | REJECTED)
-- approvalRequestId: string
-- proofDocumentUrl: string (S3 URL)
-- createdAt: string (UTC timestamp)
-- updatedAt: string (UTC timestamp)
-- createdBy: string (facultyId)
-- updatedBy: string (facultyId)
-- entityType: string ("GRANT")
-
----
-
-**Entity 4 — Grant Investigators**
-
-`Table: research-grant-investigators
+Grant Investigators:
 PK = GRANT#<grantId>
-SK = FACULTY#<facultyId>
+SK = INVESTIGATOR#<facultyId>
+entityType = "GRANT_INVESTIGATOR"
 
-Fields:
-- grantId: string
-- facultyId: string
-- role: enum (PI | CO_PI)`
+GSIs needed:
 
----
+GSI1:
 
-**Entity 5 — Patents**
+- GSI1PK = facultyId
+- GSI1SK = entityType
+- Purpose: get all records for a faculty member
 
-`Table: research-patents
-PK = CAMPUS#<campus>
-SK = PATENT#FACULTY#<facultyId>`
+GSI2:
 
-Fields:
+- GSI2PK = approvalStatus
+- GSI2SK = campus
+- Purpose: get all pending approvals
 
-- patentId: string (unique ID)
-- facultyId: string (from JWT)
-- campus: string (from JWT)
-- department: string (from JWT)
-- school: string (from JWT)
-- role: string (from JWT)
-- moduleId: string ("research")
-- patentTitle: string
-- applicationNumber: string
-- filingDate: string
-- country: string
-- patentStatus: enum (FILED | PUBLISHED | GRANTED)
-- approvalStatus: string (PENDING | APPROVED | REJECTED)
-- approvalRequestId: string
-- proofDocumentUrl: string (S3 URL)
-- createdAt: string (UTC timestamp)
-- updatedAt: string (UTC timestamp)
-- createdBy: string (facultyId)
-- updatedBy: string (facultyId)
-- entityType: string ("PATENT")
+GSI3:
 
----
-
-**Entity 6 — PhD Scholars**
-
-`Table: research-scholars
-PK = CAMPUS#<campus>
-SK = SCHOLAR#FACULTY#<facultyId>`
-
-Fields:
-
-- scholarId: string (unique ID)
-- facultyId: string (from JWT)
-- campus: string (from JWT)
-- department: string (from JWT)
-- school: string (from JWT)
-- role: string (from JWT)
-- moduleId: string ("research")
-- scholarName: string
-- scholarEmail: string
-- researchTopic: string
-- enrollmentYear: number
-- expectedCompletionYear: number
-- currentStage: enum (COURSEWORK | PROPOSAL |
-RESEARCH | THESIS | DEFENDED | AWARDED)
-- thesisTitle: string
-- awardedYear: number (if degree awarded)
-- approvalStatus: string (PENDING | APPROVED | REJECTED)
-- approvalRequestId: string
-- createdAt: string (UTC timestamp)
-- updatedAt: string (UTC timestamp)
-- createdBy: string (facultyId)
-- updatedBy: string (facultyId)
-- entityType: string ("SCHOLAR")
+- GSI3PK = fingerprintHash
+- Purpose: duplicate detection
 
 **Access Patterns:**
 
-`1. Get all publications for a faculty member
-   → Query PK=CAMPUS#<campus>, 
-     begins_with(SK, "PUB#")
-
-2. Get all publications for a specific year
-   → Query PK=CAMPUS#<campus>, 
-     begins_with(SK, "PUB#YEAR#2026")
-
-3. Get all pending approvals
-   → GSI on approvalStatus
-   → Query approvalStatus = "PENDING"
-
-4. Get all grants for a faculty member
-   → Query PK=CAMPUS#<campus>,
-     begins_with(SK, "GRANT#FACULTY#<facultyId>")
-
-5. Get all investigators for a grant
-   → Query PK=GRANT#<grantId>
-
-6. Check duplicate by DOI
-   → Query fingerprintHash GSI
-   → or direct DOI field lookup
-
-7. Get all scholars under a faculty guide
-   → Query PK=CAMPUS#<campus>,
-     begins_with(SK, "SCHOLAR#FACULTY#<facultyId>")`
-
----
+1. Get all publications for a faculty member
+→ Query PK=CAMPUS#<campus>
+→ SK begins_with PUB#
+→ Filter entityType = "PUBLICATION"
+2. Get all grants for a faculty member
+→ Query PK=CAMPUS#<campus>
+→ SK begins_with GRANT#FACULTY#<facultyId>
+→ Filter entityType = "GRANT"
+3. Get all patents for a faculty member
+→ Query PK=CAMPUS#<campus>
+→ SK begins_with PATENT#FACULTY#<facultyId>
+→ Filter entityType = "PATENT"
+4. Get all scholars for a faculty member
+→ Query PK=CAMPUS#<campus>
+→ SK begins_with SCHOLAR#FACULTY#<facultyId>
+→ Filter entityType = "SCHOLAR"
+5. Get all records for a faculty (any type)
+→ GSI1 Query GSI1PK=<facultyId>
+6. Get all pending approvals
+→ GSI2 Query GSI2PK=PENDING
+→ Filter campus if needed
+7. Duplicate detection by DOI/hash
+→ GSI3 Query GSI3PK=<fingerprintHash>
+8. Get authors for a publication
+→ Query PK=PUB#<publicationId>
+→ SK begins_with AUTHOR#
+9. Get investigators for a grant
+→ Query PK=GRANT#<grantId>
+→ SK begins_with INVESTIGATOR#
+10. Get publications by year
+→ Query PK=CAMPUS#<campus>
+→ SK begins_with PUB#<year>
 
 ## 6. API Design
 
