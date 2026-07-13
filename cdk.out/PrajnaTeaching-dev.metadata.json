@@ -1,0 +1,1803 @@
+{
+  "/PrajnaTeaching-dev": [
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    },
+    {
+      "type": "aws:cdk:stack-tags",
+      "data": [
+        {
+          "key": "ManagedBy",
+          "value": "CDK"
+        },
+        {
+          "key": "Module",
+          "value": "Module8"
+        },
+        {
+          "key": "Project",
+          "value": "PRAJNA"
+        },
+        {
+          "key": "Stage",
+          "value": "dev"
+        }
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/SsmParameterValue:--prajna--dev--storage--documents-bucket-name:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SsmParameterValueprajnadevstoragedocumentsbucketnameC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...StringParameter2.valueForStringParameter in aws-cdk-lib...",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:26:53)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/SsmParameterValue:--prajna--dev--database--teaching-table-name:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SsmParameterValueprajnadevdatabaseteachingtablenameC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...StringParameter2.valueForStringParameter in aws-cdk-lib...",
+        "new DynamoDbConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\dynamodb.construct.ts:24:42)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:32:22)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/SsmParameterValue:--prajna--dev--database--teaching-table-arn:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SsmParameterValueprajnadevdatabaseteachingtablearnC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...StringParameter2.valueForStringParameter in aws-cdk-lib...",
+        "new DynamoDbConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\dynamodb.construct.ts:30:41)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:32:22)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/SsmParameterValue:--prajna--dev--eventbridge--event-bus-name:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SsmParameterValueprajnadeveventbridgeeventbusnameC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...StringParameter2.valueForStringParameter in aws-cdk-lib...",
+        "new EventBridgeConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\eventbridge.construct.ts:24:45)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:35:25)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/AWS679f53fac002430cb0da5b7982bd2287": [
+    {
+      "type": "aws:cdk:is-custom-resource-handler-singleton",
+      "data": true
+    },
+    {
+      "type": "aws:cdk:is-custom-resource-handler-runtime-family",
+      "data": 0
+    }
+  ],
+  "/PrajnaTeaching-dev/SsmParameterValue:--prajna--dev--api--http-api-id:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...StringParameter2.valueForStringParameter in aws-cdk-lib...",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:32:39)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/SsmParameterValue:--prajna--dev--auth--cognito-authorizer-id:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SsmParameterValueprajnadevauthcognitoauthorizeridC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...StringParameter2.valueForStringParameter in aws-cdk-lib...",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:42:46)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/DeliverableLambdaArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DeliverableLambdaArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:58:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ScheduleLambdaArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ScheduleLambdaArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:63:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/AWS679f53fac002430cb0da5b7982bd2287/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AWS679f53fac002430cb0da5b7982bd22872D164C4C"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/LoadIntegration": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationLoadIntegration587A898A"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:49:27)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:73:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/LoadRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationLoadRoute69B721EF"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:56:7)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:73:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/TimetableIntegration": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationTimetableIntegrationEC540032"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:49:27)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:74:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/TimetableRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationTimetableRoute1D868F96"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:56:7)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:74:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/TeachingDepsIntegration": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationTeachingDepsIntegration60FFC097"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:49:27)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:75:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/TeachingDepsRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationTeachingDepsRoute72786203"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:56:7)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:75:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/LPPostIntegration": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationLPPostIntegrationC01EA3AC"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:49:27)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:78:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/LPPostRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationLPPostRoute2FC82C09"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:56:7)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:78:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/LPGetIntegration": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationLPGetIntegration1D81A108"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:49:27)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:79:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/LPGetRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationLPGetRouteF0962D0A"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:56:7)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:79:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/LPPutIntegration": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationLPPutIntegrationE358D87E"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:49:27)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:80:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/LPPutRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationLPPutRoute6C5E08FC"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:56:7)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:80:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/LPDelIntegration": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationLPDelIntegrationB82A33AE"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:49:27)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:81:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/LPDelRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationLPDelRoute8249B777"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:56:7)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:81:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/AttPostIntegration": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationAttPostIntegration3C4B5841"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:49:27)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:84:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/AttPostRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationAttPostRouteE5243D04"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:56:7)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:84:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/AttGetIntegration": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationAttGetIntegration0C48F249"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:49:27)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:85:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/AttGetRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationAttGetRouteD9041968"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:56:7)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:85:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/AttPutIntegration": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationAttPutIntegrationA82F5B68"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:49:27)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:86:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/AttPutRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationAttPutRoute08CA87F1"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:56:7)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:86:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/DelPostIntegration": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationDelPostIntegration03F450AD"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:49:27)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:89:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/DelPostRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationDelPostRouteB8179E31"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:56:7)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:89:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/DelGetIntegration": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationDelGetIntegration00F3789E"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:49:27)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:90:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/DelGetRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationDelGetRoute053E7A78"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:56:7)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:90:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/DelPutIdIntegration": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationDelPutIdIntegration20742062"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:49:27)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:91:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/DelPutIdRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationDelPutIdRouteAF2791EF"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:56:7)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:91:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/DelDelIdIntegration": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationDelDelIdIntegration97EC85AD"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:49:27)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:92:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/DelDelIdRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationDelDelIdRoute525E130B"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:56:7)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:92:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/DelGetIdIntegration": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationDelGetIdIntegration1F272422"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:49:27)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:93:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/DelGetIdRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationDelGetIdRouteDD6A9142"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:56:7)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:93:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/FbPostIntegration": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationFbPostIntegration06F833A1"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:49:27)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:96:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/FbPostRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationFbPostRouteA33B79BF"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:56:7)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:96:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/FbGetIntegration": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationFbGetIntegrationA73EE451"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:49:27)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:97:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/FbGetRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationFbGetRoute6FD6F9CC"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:56:7)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:97:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/FbGetIdIntegration": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationFbGetIdIntegrationAA999882"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:49:27)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:98:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/FbGetIdRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationFbGetIdRoute7B9E9C72"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:56:7)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:98:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/FbPutIdIntegration": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationFbPutIdIntegration92620BA9"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:49:27)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:99:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/FbPutIdRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationFbPutIdRouteDE8BD4C5"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:56:7)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:99:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/FbPostRespIntegration": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationFbPostRespIntegration5F54129C"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:49:27)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:100:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/FbPostRespRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationFbPostRespRouteF7958AEB"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:56:7)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:100:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/GbGetIntegration": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationGbGetIntegrationE2E3E59B"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:49:27)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:103:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/GbGetRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationGbGetRoute9930D336"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:56:7)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:103:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/GbSyncIntegration": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationGbSyncIntegration02CD13F8"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:49:27)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:104:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/GbSyncRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationGbSyncRoute336EF070"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:56:7)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:104:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/UpTeachingIntegration": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationUpTeachingIntegrationC60BFDFC"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:49:27)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:107:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/UpTeachingRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationUpTeachingRouteF9C0E221"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:56:7)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:107:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/UpDelIntegration": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationUpDelIntegrationF02BA37E"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:49:27)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:108:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/UpDelRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationUpDelRoute662C0CE1"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:56:7)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:108:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/UpSubIntegration": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationUpSubIntegration447D2740"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:49:27)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:109:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/UpSubRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationUpSubRouteB1B264B5"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:56:7)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:109:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/UpDlIntegration": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationUpDlIntegration0AA0912C"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:49:27)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:110:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/ApiIntegration/UpDlRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiIntegrationUpDlRoute7F08C922"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:56:7)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:110:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/CDKMetadata/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadata"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...App.synth in aws-cdk-lib...",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:29:5)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/EventBridge/TeachingEventAuditLog/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EventBridgeTeachingEventAuditLog47DB4FB4"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new LogGroup2 in aws-cdk-lib...",
+        "new EventBridgeConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\eventbridge.construct.ts:36:27)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:35:25)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/EventBridge/TeachingEventsArchiveRule/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EventBridgeTeachingEventsArchiveRule981C7A54"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Rule2 in aws-cdk-lib...",
+        "new EventBridgeConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\eventbridge.construct.ts:41:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:35:25)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/EventsLogGroupPolicyPrajnaTeachingdevEventBridgeTeachingEventsArchiveRule4FB2AFB2/Resource/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EventsLogGroupPolicyPrajnaTeachingdevEventBridgeTeachingEventsArchiveRule4FB2AFB251B09F4A"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/EventsLogGroupPolicyPrajnaTeachingdevEventBridgeTeachingEventsArchiveRule4FB2AFB2/CustomResourcePolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EventsLogGroupPolicyPrajnaTeachingdevEventBridgeTeachingEventsArchiveRule4FB2AFB2CustomResourcePolicy4EB0D12D"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/AWS679f53fac002430cb0da5b7982bd2287/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/LambdaRole/Role/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasLambdaRole626CC60B"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Role2 in aws-cdk-lib...",
+        "new SharedRole (C:\\prajna-module-8\\src\\infrastructure\\constructs\\foundation.construct.ts:67:17)",
+        "new LambdaConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\lambda.construct.ts:37:27)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:38:21)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/deliverableLogGroup/LogGroup/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasdeliverableLogGroup859B6EAF"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new LogGroup2 in aws-cdk-lib...",
+        "new SharedLogGroup (C:\\prajna-module-8\\src\\infrastructure\\constructs\\foundation.construct.ts:96:21)",
+        "makeLogGroup (C:\\prajna-module-8\\src\\infrastructure\\constructs\\lambda.construct.ts:110:7)",
+        "new LambdaConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\lambda.construct.ts:115:28)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:38:21)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/submissionLogGroup/LogGroup/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdassubmissionLogGroup47D05A23"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new LogGroup2 in aws-cdk-lib...",
+        "new SharedLogGroup (C:\\prajna-module-8\\src\\infrastructure\\constructs\\foundation.construct.ts:96:21)",
+        "makeLogGroup (C:\\prajna-module-8\\src\\infrastructure\\constructs\\lambda.construct.ts:110:7)",
+        "new LambdaConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\lambda.construct.ts:116:27)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:38:21)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/uploadLogGroup/LogGroup/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasuploadLogGroupA7A874B6"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new LogGroup2 in aws-cdk-lib...",
+        "new SharedLogGroup (C:\\prajna-module-8\\src\\infrastructure\\constructs\\foundation.construct.ts:96:21)",
+        "makeLogGroup (C:\\prajna-module-8\\src\\infrastructure\\constructs\\lambda.construct.ts:110:7)",
+        "new LambdaConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\lambda.construct.ts:117:23)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:38:21)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/feedbackLogGroup/LogGroup/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasfeedbackLogGroupE04B27F8"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new LogGroup2 in aws-cdk-lib...",
+        "new SharedLogGroup (C:\\prajna-module-8\\src\\infrastructure\\constructs\\foundation.construct.ts:96:21)",
+        "makeLogGroup (C:\\prajna-module-8\\src\\infrastructure\\constructs\\lambda.construct.ts:110:7)",
+        "new LambdaConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\lambda.construct.ts:118:25)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:38:21)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/scheduleLogGroup/LogGroup/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasscheduleLogGroup13B2181E"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new LogGroup2 in aws-cdk-lib...",
+        "new SharedLogGroup (C:\\prajna-module-8\\src\\infrastructure\\constructs\\foundation.construct.ts:96:21)",
+        "makeLogGroup (C:\\prajna-module-8\\src\\infrastructure\\constructs\\lambda.construct.ts:110:7)",
+        "new LambdaConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\lambda.construct.ts:119:25)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:38:21)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/gradebookLogGroup/LogGroup/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasgradebookLogGroupAC957978"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new LogGroup2 in aws-cdk-lib...",
+        "new SharedLogGroup (C:\\prajna-module-8\\src\\infrastructure\\constructs\\foundation.construct.ts:96:21)",
+        "makeLogGroup (C:\\prajna-module-8\\src\\infrastructure\\constructs\\lambda.construct.ts:110:7)",
+        "new LambdaConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\lambda.construct.ts:120:26)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:38:21)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/DeliverableHandler/Fn/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasDeliverableHandlerFnE7CC8C91"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Function2 in aws-cdk-lib...",
+        "new SharedLambda (C:\\prajna-module-8\\src\\infrastructure\\constructs\\foundation.construct.ts:33:15)",
+        "new LambdaConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\lambda.construct.ts:122:31)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:38:21)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/DeliverableHandler/Fn/DelPostInvoke": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasDeliverableHandlerFnDelPostInvokeDFD4F286"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addPermission in aws-cdk-lib...",
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:65:10)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:89:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/DeliverableHandler/Fn/DelGetInvoke": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasDeliverableHandlerFnDelGetInvoke22AAD359"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addPermission in aws-cdk-lib...",
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:65:10)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:90:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/DeliverableHandler/Fn/DelPutIdInvoke": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasDeliverableHandlerFnDelPutIdInvoke039269BF"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addPermission in aws-cdk-lib...",
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:65:10)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:91:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/DeliverableHandler/Fn/DelDelIdInvoke": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasDeliverableHandlerFnDelDelIdInvoke3973FA73"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addPermission in aws-cdk-lib...",
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:65:10)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:92:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/DeliverableHandler/Fn/DelGetIdInvoke": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasDeliverableHandlerFnDelGetIdInvoke4C731274"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addPermission in aws-cdk-lib...",
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:65:10)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:93:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/SubmissionHandler/Fn/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasSubmissionHandlerFn8BA9089F"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Function2 in aws-cdk-lib...",
+        "new SharedLambda (C:\\prajna-module-8\\src\\infrastructure\\constructs\\foundation.construct.ts:33:15)",
+        "new LambdaConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\lambda.construct.ts:131:30)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:38:21)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/UploadHandler/Fn/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasUploadHandlerFn2159A16D"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Function2 in aws-cdk-lib...",
+        "new SharedLambda (C:\\prajna-module-8\\src\\infrastructure\\constructs\\foundation.construct.ts:33:15)",
+        "new LambdaConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\lambda.construct.ts:140:26)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:38:21)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/UploadHandler/Fn/UpTeachingInvoke": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasUploadHandlerFnUpTeachingInvoke1BB90EE1"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addPermission in aws-cdk-lib...",
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:65:10)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:107:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/UploadHandler/Fn/UpDelInvoke": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasUploadHandlerFnUpDelInvoke1ADB12EC"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addPermission in aws-cdk-lib...",
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:65:10)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:108:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/UploadHandler/Fn/UpSubInvoke": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasUploadHandlerFnUpSubInvoke1F1C043D"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addPermission in aws-cdk-lib...",
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:65:10)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:109:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/UploadHandler/Fn/UpDlInvoke": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasUploadHandlerFnUpDlInvoke32793300"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addPermission in aws-cdk-lib...",
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:65:10)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:110:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/FeedbackHandler/Fn/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasFeedbackHandlerFn5D369963"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Function2 in aws-cdk-lib...",
+        "new SharedLambda (C:\\prajna-module-8\\src\\infrastructure\\constructs\\foundation.construct.ts:33:15)",
+        "new LambdaConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\lambda.construct.ts:150:28)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:38:21)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/FeedbackHandler/Fn/FbPostInvoke": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasFeedbackHandlerFnFbPostInvokeE9F48C4F"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addPermission in aws-cdk-lib...",
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:65:10)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:96:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/FeedbackHandler/Fn/FbGetInvoke": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasFeedbackHandlerFnFbGetInvokeE518B531"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addPermission in aws-cdk-lib...",
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:65:10)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:97:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/FeedbackHandler/Fn/FbGetIdInvoke": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasFeedbackHandlerFnFbGetIdInvoke3E214A79"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addPermission in aws-cdk-lib...",
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:65:10)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:98:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/FeedbackHandler/Fn/FbPutIdInvoke": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasFeedbackHandlerFnFbPutIdInvoke7F1C96BF"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addPermission in aws-cdk-lib...",
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:65:10)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:99:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/FeedbackHandler/Fn/FbPostRespInvoke": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasFeedbackHandlerFnFbPostRespInvoke8899364E"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addPermission in aws-cdk-lib...",
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:65:10)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:100:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/ScheduleHandler/Fn/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasScheduleHandlerFn0D7493C6"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Function2 in aws-cdk-lib...",
+        "new SharedLambda (C:\\prajna-module-8\\src\\infrastructure\\constructs\\foundation.construct.ts:33:15)",
+        "new LambdaConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\lambda.construct.ts:159:28)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:38:21)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/ScheduleHandler/Fn/LoadInvoke": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasScheduleHandlerFnLoadInvokeD2FD9F3C"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addPermission in aws-cdk-lib...",
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:65:10)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:73:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/ScheduleHandler/Fn/TimetableInvoke": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasScheduleHandlerFnTimetableInvokeC5D4ECAE"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addPermission in aws-cdk-lib...",
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:65:10)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:74:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/ScheduleHandler/Fn/TeachingDepsInvoke": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasScheduleHandlerFnTeachingDepsInvoke620D6DFD"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addPermission in aws-cdk-lib...",
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:65:10)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:75:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/ScheduleHandler/Fn/LPPostInvoke": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasScheduleHandlerFnLPPostInvokeF2AFC4AF"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addPermission in aws-cdk-lib...",
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:65:10)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:78:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/ScheduleHandler/Fn/LPGetInvoke": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasScheduleHandlerFnLPGetInvokeF6264D00"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addPermission in aws-cdk-lib...",
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:65:10)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:79:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/ScheduleHandler/Fn/LPPutInvoke": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasScheduleHandlerFnLPPutInvoke2517847B"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addPermission in aws-cdk-lib...",
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:65:10)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:80:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/ScheduleHandler/Fn/LPDelInvoke": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasScheduleHandlerFnLPDelInvoke01591AD0"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addPermission in aws-cdk-lib...",
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:65:10)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:81:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/ScheduleHandler/Fn/AttPostInvoke": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasScheduleHandlerFnAttPostInvoke4FBF3959"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addPermission in aws-cdk-lib...",
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:65:10)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:84:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/ScheduleHandler/Fn/AttGetInvoke": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasScheduleHandlerFnAttGetInvoke3A5D5BED"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addPermission in aws-cdk-lib...",
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:65:10)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:85:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/ScheduleHandler/Fn/AttPutInvoke": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasScheduleHandlerFnAttPutInvokeA9FA5BF2"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addPermission in aws-cdk-lib...",
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:65:10)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:86:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/GradebookHandler/Fn/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasGradebookHandlerFnDAA57EE2"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Function2 in aws-cdk-lib...",
+        "new SharedLambda (C:\\prajna-module-8\\src\\infrastructure\\constructs\\foundation.construct.ts:33:15)",
+        "new LambdaConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\lambda.construct.ts:168:29)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:38:21)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/GradebookHandler/Fn/GbGetInvoke": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasGradebookHandlerFnGbGetInvoke9CEEE287"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addPermission in aws-cdk-lib...",
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:65:10)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:103:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/GradebookHandler/Fn/GbSyncInvoke": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasGradebookHandlerFnGbSyncInvoke875C6D02"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addPermission in aws-cdk-lib...",
+        "addRoute (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:65:10)",
+        "new ApiIntegrationConstruct (C:\\prajna-module-8\\src\\infrastructure\\constructs\\api-integration.construct.ts:104:5)",
+        "new PrajnaTeachingStack (C:\\prajna-module-8\\src\\infrastructure\\stacks\\prajna-teaching.stack.ts:47:5)",
+        "<anonymous> (C:\\prajna-module-8\\bin\\app.ts:15:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/PrajnaTeaching-dev/Lambdas/LambdaRole/Role/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdasLambdaRoleDefaultPolicy6AB51A7A"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Function2 in aws-cdk-lib...",
+        "new SharedLambda (C:\\prajna-module-8\\src\\infrastructure\\constructs\\foundation.construct.ts:33:15)"
+      ]
+    }
+  ]
+}

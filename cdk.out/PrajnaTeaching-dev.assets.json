@@ -1,0 +1,51 @@
+{
+  "version": "54.0.0",
+  "files": {
+    "9b8fce7ae7f25ef82fdbaf6b72523b99d0875c0c9c826642819fb51f11d9b125": {
+      "displayName": "AWS679f53fac002430cb0da5b7982bd2287/Code",
+      "source": {
+        "path": "asset.9b8fce7ae7f25ef82fdbaf6b72523b99d0875c0c9c826642819fb51f11d9b125",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "714610888100-ap-south-1-78977627": {
+          "bucketName": "cdk-hnb659fds-assets-714610888100-ap-south-1",
+          "objectKey": "9b8fce7ae7f25ef82fdbaf6b72523b99d0875c0c9c826642819fb51f11d9b125.zip",
+          "region": "ap-south-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::714610888100:role/cdk-hnb659fds-file-publishing-role-714610888100-ap-south-1"
+        }
+      }
+    },
+    "5d01584c2f43fe1b2381240fab3b8ab7248d9c0ec76dba08abaf4f274c903403": {
+      "displayName": "Lambdas/DeliverableHandler/Fn/Code",
+      "source": {
+        "path": "asset.5d01584c2f43fe1b2381240fab3b8ab7248d9c0ec76dba08abaf4f274c903403",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "714610888100-ap-south-1-3cd7a88d": {
+          "bucketName": "cdk-hnb659fds-assets-714610888100-ap-south-1",
+          "objectKey": "5d01584c2f43fe1b2381240fab3b8ab7248d9c0ec76dba08abaf4f274c903403.zip",
+          "region": "ap-south-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::714610888100:role/cdk-hnb659fds-file-publishing-role-714610888100-ap-south-1"
+        }
+      }
+    },
+    "1a2bf11d1af29642e198b2d7ad41812203de692c4d1aae403758828d39ffdbfb": {
+      "displayName": "PrajnaTeaching-dev Template",
+      "source": {
+        "path": "PrajnaTeaching-dev.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "714610888100-ap-south-1-60b217a4": {
+          "bucketName": "cdk-hnb659fds-assets-714610888100-ap-south-1",
+          "objectKey": "1a2bf11d1af29642e198b2d7ad41812203de692c4d1aae403758828d39ffdbfb.json",
+          "region": "ap-south-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::714610888100:role/cdk-hnb659fds-file-publishing-role-714610888100-ap-south-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

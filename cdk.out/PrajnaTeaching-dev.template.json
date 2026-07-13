@@ -1,0 +1,2504 @@
+{
+ "Parameters": {
+  "SsmParameterValueprajnadevstoragedocumentsbucketnameC96584B6F00A464EAD1953AFF4B05118Parameter": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/prajna/dev/storage/documents-bucket-name"
+  },
+  "SsmParameterValueprajnadevdatabaseteachingtablenameC96584B6F00A464EAD1953AFF4B05118Parameter": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/prajna/dev/database/teaching-table-name"
+  },
+  "SsmParameterValueprajnadevdatabaseteachingtablearnC96584B6F00A464EAD1953AFF4B05118Parameter": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/prajna/dev/database/teaching-table-arn"
+  },
+  "SsmParameterValueprajnadeveventbridgeeventbusnameC96584B6F00A464EAD1953AFF4B05118Parameter": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/prajna/dev/eventbridge/event-bus-name"
+  },
+  "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/prajna/dev/api/http-api-id"
+  },
+  "SsmParameterValueprajnadevauthcognitoauthorizeridC96584B6F00A464EAD1953AFF4B05118Parameter": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/prajna/dev/auth/cognito-authorizer-id"
+  },
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Resources": {
+  "EventBridgeTeachingEventAuditLog47DB4FB4": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": "/prajna/dev/eventbridge/teaching-events",
+    "RetentionInDays": 731
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/EventBridge/TeachingEventAuditLog/Resource"
+   }
+  },
+  "EventBridgeTeachingEventsArchiveRule981C7A54": {
+   "Type": "AWS::Events::Rule",
+   "Properties": {
+    "Description": "Captures all prajna.teaching domain events for audit",
+    "EventBusName": {
+     "Ref": "SsmParameterValueprajnadeveventbridgeeventbusnameC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "EventPattern": {
+     "source": [
+      "prajna.teaching"
+     ],
+     "detail-type": [
+      "deliverable.published",
+      "submission.received",
+      "feedback.released",
+      "session.scheduled",
+      "session.cancelled",
+      "gradebook.updated"
+     ]
+    },
+    "Name": "prajna-teaching-events-dev",
+    "State": "ENABLED",
+    "Targets": [
+     {
+      "Arn": {
+       "Fn::Join": [
+        "",
+        [
+         "arn:aws:logs:ap-south-1:714610888100:log-group:",
+         {
+          "Ref": "EventBridgeTeachingEventAuditLog47DB4FB4"
+         }
+        ]
+       ]
+      },
+      "Id": "Target0"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/EventBridge/TeachingEventsArchiveRule/Resource"
+   }
+  },
+  "EventsLogGroupPolicyPrajnaTeachingdevEventBridgeTeachingEventsArchiveRule4FB2AFB251B09F4A": {
+   "Type": "Custom::CloudwatchLogResourcePolicy",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
+      "Arn"
+     ]
+    },
+    "Create": {
+     "Fn::Join": [
+      "",
+      [
+       "{\"service\":\"CloudWatchLogs\",\"action\":\"putResourcePolicy\",\"parameters\":{\"policyName\":\"PrajnaTeachingdevEventsLogGroupPolicyPrajnaTeachingdevEventBridgeTeachingEventsArchiveRule4FB2AFB26CB1BB36\",\"policyDocument\":\"{\\\"Statement\\\":[{\\\"Action\\\":[\\\"logs:PutLogEvents\\\",\\\"logs:CreateLogStream\\\"],\\\"Effect\\\":\\\"Allow\\\",\\\"Principal\\\":{\\\"Service\\\":\\\"events.amazonaws.com\\\"},\\\"Resource\\\":\\\"",
+       {
+        "Fn::GetAtt": [
+         "EventBridgeTeachingEventAuditLog47DB4FB4",
+         "Arn"
+        ]
+       },
+       "\\\"}],\\\"Version\\\":\\\"2012-10-17\\\"}\"},\"physicalResourceId\":{\"id\":\"EventsLogGroupPolicyPrajnaTeachingdevEventBridgeTeachingEventsArchiveRule4FB2AFB2\"}}"
+      ]
+     ]
+    },
+    "Update": {
+     "Fn::Join": [
+      "",
+      [
+       "{\"service\":\"CloudWatchLogs\",\"action\":\"putResourcePolicy\",\"parameters\":{\"policyName\":\"PrajnaTeachingdevEventsLogGroupPolicyPrajnaTeachingdevEventBridgeTeachingEventsArchiveRule4FB2AFB26CB1BB36\",\"policyDocument\":\"{\\\"Statement\\\":[{\\\"Action\\\":[\\\"logs:PutLogEvents\\\",\\\"logs:CreateLogStream\\\"],\\\"Effect\\\":\\\"Allow\\\",\\\"Principal\\\":{\\\"Service\\\":\\\"events.amazonaws.com\\\"},\\\"Resource\\\":\\\"",
+       {
+        "Fn::GetAtt": [
+         "EventBridgeTeachingEventAuditLog47DB4FB4",
+         "Arn"
+        ]
+       },
+       "\\\"}],\\\"Version\\\":\\\"2012-10-17\\\"}\"},\"physicalResourceId\":{\"id\":\"EventsLogGroupPolicyPrajnaTeachingdevEventBridgeTeachingEventsArchiveRule4FB2AFB2\"}}"
+      ]
+     ]
+    },
+    "Delete": "{\"service\":\"CloudWatchLogs\",\"action\":\"deleteResourcePolicy\",\"parameters\":{\"policyName\":\"PrajnaTeachingdevEventsLogGroupPolicyPrajnaTeachingdevEventBridgeTeachingEventsArchiveRule4FB2AFB26CB1BB36\"},\"ignoreErrorCodesMatching\":\"ResourceNotFoundException\"}",
+    "InstallLatestAwsSdk": false
+   },
+   "DependsOn": [
+    "EventsLogGroupPolicyPrajnaTeachingdevEventBridgeTeachingEventsArchiveRule4FB2AFB2CustomResourcePolicy4EB0D12D"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/EventsLogGroupPolicyPrajnaTeachingdevEventBridgeTeachingEventsArchiveRule4FB2AFB2/Resource/Default"
+   }
+  },
+  "EventsLogGroupPolicyPrajnaTeachingdevEventBridgeTeachingEventsArchiveRule4FB2AFB2CustomResourcePolicy4EB0D12D": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "logs:DeleteResourcePolicy",
+        "logs:PutResourcePolicy"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "EventsLogGroupPolicyPrajnaTeachingdevEventBridgeTeachingEventsArchiveRule4FB2AFB2CustomResourcePolicy4EB0D12D",
+    "Roles": [
+     {
+      "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/EventsLogGroupPolicyPrajnaTeachingdevEventBridgeTeachingEventsArchiveRule4FB2AFB2/CustomResourcePolicy/Resource"
+   }
+  },
+  "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/AWS679f53fac002430cb0da5b7982bd2287/ServiceRole/Resource"
+   }
+  },
+  "AWS679f53fac002430cb0da5b7982bd22872D164C4C": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-714610888100-ap-south-1",
+     "S3Key": "9b8fce7ae7f25ef82fdbaf6b72523b99d0875c0c9c826642819fb51f11d9b125.zip"
+    },
+    "Handler": "index.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs24.x",
+    "Timeout": 120
+   },
+   "DependsOn": [
+    "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/AWS679f53fac002430cb0da5b7982bd2287/Resource",
+    "aws:asset:path": "asset.9b8fce7ae7f25ef82fdbaf6b72523b99d0875c0c9c826642819fb51f11d9b125",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "LambdasLambdaRole626CC60B": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     },
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AWSXRayDaemonWriteAccess"
+       ]
+      ]
+     }
+    ],
+    "Policies": [
+     {
+      "PolicyDocument": {
+       "Statement": [
+        {
+         "Action": [
+          "dynamodb:BatchWriteItem",
+          "dynamodb:DeleteItem",
+          "dynamodb:GetItem",
+          "dynamodb:PutItem",
+          "dynamodb:Query",
+          "dynamodb:TransactWriteItems",
+          "dynamodb:UpdateItem"
+         ],
+         "Effect": "Allow",
+         "Resource": [
+          {
+           "Fn::Join": [
+            "",
+            [
+             {
+              "Ref": "SsmParameterValueprajnadevdatabaseteachingtablearnC96584B6F00A464EAD1953AFF4B05118Parameter"
+             },
+             "/index/*"
+            ]
+           ]
+          },
+          {
+           "Ref": "SsmParameterValueprajnadevdatabaseteachingtablearnC96584B6F00A464EAD1953AFF4B05118Parameter"
+          }
+         ]
+        }
+       ],
+       "Version": "2012-10-17"
+      },
+      "PolicyName": "DynamoDBAccess"
+     },
+     {
+      "PolicyDocument": {
+       "Statement": [
+        {
+         "Action": "events:PutEvents",
+         "Effect": "Allow",
+         "Resource": {
+          "Fn::Join": [
+           "",
+           [
+            "arn:aws:events:ap-south-1:*:event-bus/",
+            {
+             "Ref": "SsmParameterValueprajnadeveventbridgeeventbusnameC96584B6F00A464EAD1953AFF4B05118Parameter"
+            }
+           ]
+          ]
+         }
+        }
+       ],
+       "Version": "2012-10-17"
+      },
+      "PolicyName": "EventBridgeAccess"
+     },
+     {
+      "PolicyDocument": {
+       "Statement": [
+        {
+         "Action": [
+          "s3:DeleteObject",
+          "s3:GetObject",
+          "s3:HeadObject",
+          "s3:PutObject"
+         ],
+         "Effect": "Allow",
+         "Resource": {
+          "Fn::Join": [
+           "",
+           [
+            "arn:aws:s3:::",
+            {
+             "Ref": "SsmParameterValueprajnadevstoragedocumentsbucketnameC96584B6F00A464EAD1953AFF4B05118Parameter"
+            },
+            "/documents/faculty/*"
+           ]
+          ]
+         }
+        },
+        {
+         "Action": "s3:GeneratePresignedPost",
+         "Effect": "Allow",
+         "Resource": {
+          "Fn::Join": [
+           "",
+           [
+            "arn:aws:s3:::",
+            {
+             "Ref": "SsmParameterValueprajnadevstoragedocumentsbucketnameC96584B6F00A464EAD1953AFF4B05118Parameter"
+            }
+           ]
+          ]
+         }
+        }
+       ],
+       "Version": "2012-10-17"
+      },
+      "PolicyName": "S3Access"
+     },
+     {
+      "PolicyDocument": {
+       "Statement": [
+        {
+         "Action": [
+          "ssm:GetParameter",
+          "ssm:GetParameters"
+         ],
+         "Effect": "Allow",
+         "Resource": "arn:aws:ssm:ap-south-1:*:parameter/prajna/dev/*"
+        }
+       ],
+       "Version": "2012-10-17"
+      },
+      "PolicyName": "SSMAccess"
+     }
+    ],
+    "RoleName": "prajna-teaching-lambda-dev"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/LambdaRole/Role/Resource"
+   }
+  },
+  "LambdasLambdaRoleDefaultPolicy6AB51A7A": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "xray:PutTelemetryRecords",
+        "xray:PutTraceSegments"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "LambdasLambdaRoleDefaultPolicy6AB51A7A",
+    "Roles": [
+     {
+      "Ref": "LambdasLambdaRole626CC60B"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/LambdaRole/Role/DefaultPolicy/Resource"
+   }
+  },
+  "LambdasdeliverableLogGroup859B6EAF": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": "/prajna/dev/module8/deliverable",
+    "RetentionInDays": 7
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/deliverableLogGroup/LogGroup/Resource"
+   }
+  },
+  "LambdassubmissionLogGroup47D05A23": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": "/prajna/dev/module8/submission",
+    "RetentionInDays": 7
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/submissionLogGroup/LogGroup/Resource"
+   }
+  },
+  "LambdasuploadLogGroupA7A874B6": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": "/prajna/dev/module8/upload",
+    "RetentionInDays": 7
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/uploadLogGroup/LogGroup/Resource"
+   }
+  },
+  "LambdasfeedbackLogGroupE04B27F8": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": "/prajna/dev/module8/feedback",
+    "RetentionInDays": 7
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/feedbackLogGroup/LogGroup/Resource"
+   }
+  },
+  "LambdasscheduleLogGroup13B2181E": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": "/prajna/dev/module8/schedule",
+    "RetentionInDays": 7
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/scheduleLogGroup/LogGroup/Resource"
+   }
+  },
+  "LambdasgradebookLogGroupAC957978": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": "/prajna/dev/module8/gradebook",
+    "RetentionInDays": 7
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/gradebookLogGroup/LogGroup/Resource"
+   }
+  },
+  "LambdasDeliverableHandlerFnE7CC8C91": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Architectures": [
+     "arm64"
+    ],
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-714610888100-ap-south-1",
+     "S3Key": "5d01584c2f43fe1b2381240fab3b8ab7248d9c0ec76dba08abaf4f274c903403.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "NODE_ENV": "dev",
+      "DYNAMODB_TABLE_NAME": {
+       "Ref": "SsmParameterValueprajnadevdatabaseteachingtablenameC96584B6F00A464EAD1953AFF4B05118Parameter"
+      },
+      "EVENT_BUS_NAME": {
+       "Ref": "SsmParameterValueprajnadeveventbridgeeventbusnameC96584B6F00A464EAD1953AFF4B05118Parameter"
+      },
+      "DOCUMENTS_BUCKET_NAME": {
+       "Ref": "SsmParameterValueprajnadevstoragedocumentsbucketnameC96584B6F00A464EAD1953AFF4B05118Parameter"
+      },
+      "STAGE": "dev"
+     }
+    },
+    "FunctionName": "prajna-teaching-deliverable-dev",
+    "Handler": "deliverable.handler.handler",
+    "LoggingConfig": {
+     "LogGroup": {
+      "Ref": "LambdasdeliverableLogGroup859B6EAF"
+     }
+    },
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "LambdasLambdaRole626CC60B",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs22.x",
+    "Timeout": 30,
+    "TracingConfig": {
+     "Mode": "Active"
+    }
+   },
+   "DependsOn": [
+    "LambdasLambdaRoleDefaultPolicy6AB51A7A",
+    "LambdasLambdaRole626CC60B"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/DeliverableHandler/Fn/Resource",
+    "aws:asset:path": "asset.5d01584c2f43fe1b2381240fab3b8ab7248d9c0ec76dba08abaf4f274c903403",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "LambdasDeliverableHandlerFnDelPostInvokeDFD4F286": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "LambdasDeliverableHandlerFnE7CC8C91",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/DeliverableHandler/Fn/DelPostInvoke"
+   }
+  },
+  "LambdasDeliverableHandlerFnDelGetInvoke22AAD359": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "LambdasDeliverableHandlerFnE7CC8C91",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/DeliverableHandler/Fn/DelGetInvoke"
+   }
+  },
+  "LambdasDeliverableHandlerFnDelPutIdInvoke039269BF": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "LambdasDeliverableHandlerFnE7CC8C91",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/DeliverableHandler/Fn/DelPutIdInvoke"
+   }
+  },
+  "LambdasDeliverableHandlerFnDelDelIdInvoke3973FA73": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "LambdasDeliverableHandlerFnE7CC8C91",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/DeliverableHandler/Fn/DelDelIdInvoke"
+   }
+  },
+  "LambdasDeliverableHandlerFnDelGetIdInvoke4C731274": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "LambdasDeliverableHandlerFnE7CC8C91",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/DeliverableHandler/Fn/DelGetIdInvoke"
+   }
+  },
+  "LambdasSubmissionHandlerFn8BA9089F": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Architectures": [
+     "arm64"
+    ],
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-714610888100-ap-south-1",
+     "S3Key": "5d01584c2f43fe1b2381240fab3b8ab7248d9c0ec76dba08abaf4f274c903403.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "NODE_ENV": "dev",
+      "DYNAMODB_TABLE_NAME": {
+       "Ref": "SsmParameterValueprajnadevdatabaseteachingtablenameC96584B6F00A464EAD1953AFF4B05118Parameter"
+      },
+      "EVENT_BUS_NAME": {
+       "Ref": "SsmParameterValueprajnadeveventbridgeeventbusnameC96584B6F00A464EAD1953AFF4B05118Parameter"
+      },
+      "DOCUMENTS_BUCKET_NAME": {
+       "Ref": "SsmParameterValueprajnadevstoragedocumentsbucketnameC96584B6F00A464EAD1953AFF4B05118Parameter"
+      },
+      "STAGE": "dev"
+     }
+    },
+    "FunctionName": "prajna-teaching-submission-dev",
+    "Handler": "submission.handler.handler",
+    "LoggingConfig": {
+     "LogGroup": {
+      "Ref": "LambdassubmissionLogGroup47D05A23"
+     }
+    },
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "LambdasLambdaRole626CC60B",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs22.x",
+    "Timeout": 30,
+    "TracingConfig": {
+     "Mode": "Active"
+    }
+   },
+   "DependsOn": [
+    "LambdasLambdaRoleDefaultPolicy6AB51A7A",
+    "LambdasLambdaRole626CC60B"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/SubmissionHandler/Fn/Resource",
+    "aws:asset:path": "asset.5d01584c2f43fe1b2381240fab3b8ab7248d9c0ec76dba08abaf4f274c903403",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "LambdasUploadHandlerFn2159A16D": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Architectures": [
+     "arm64"
+    ],
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-714610888100-ap-south-1",
+     "S3Key": "5d01584c2f43fe1b2381240fab3b8ab7248d9c0ec76dba08abaf4f274c903403.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "NODE_ENV": "dev",
+      "DYNAMODB_TABLE_NAME": {
+       "Ref": "SsmParameterValueprajnadevdatabaseteachingtablenameC96584B6F00A464EAD1953AFF4B05118Parameter"
+      },
+      "EVENT_BUS_NAME": {
+       "Ref": "SsmParameterValueprajnadeveventbridgeeventbusnameC96584B6F00A464EAD1953AFF4B05118Parameter"
+      },
+      "DOCUMENTS_BUCKET_NAME": {
+       "Ref": "SsmParameterValueprajnadevstoragedocumentsbucketnameC96584B6F00A464EAD1953AFF4B05118Parameter"
+      },
+      "STAGE": "dev"
+     }
+    },
+    "FunctionName": "prajna-teaching-upload-dev",
+    "Handler": "upload.handler.handler",
+    "LoggingConfig": {
+     "LogGroup": {
+      "Ref": "LambdasuploadLogGroupA7A874B6"
+     }
+    },
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "LambdasLambdaRole626CC60B",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs22.x",
+    "Timeout": 15,
+    "TracingConfig": {
+     "Mode": "Active"
+    }
+   },
+   "DependsOn": [
+    "LambdasLambdaRoleDefaultPolicy6AB51A7A",
+    "LambdasLambdaRole626CC60B"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/UploadHandler/Fn/Resource",
+    "aws:asset:path": "asset.5d01584c2f43fe1b2381240fab3b8ab7248d9c0ec76dba08abaf4f274c903403",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "LambdasUploadHandlerFnUpTeachingInvoke1BB90EE1": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "LambdasUploadHandlerFn2159A16D",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/UploadHandler/Fn/UpTeachingInvoke"
+   }
+  },
+  "LambdasUploadHandlerFnUpDelInvoke1ADB12EC": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "LambdasUploadHandlerFn2159A16D",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/UploadHandler/Fn/UpDelInvoke"
+   }
+  },
+  "LambdasUploadHandlerFnUpSubInvoke1F1C043D": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "LambdasUploadHandlerFn2159A16D",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/UploadHandler/Fn/UpSubInvoke"
+   }
+  },
+  "LambdasUploadHandlerFnUpDlInvoke32793300": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "LambdasUploadHandlerFn2159A16D",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/UploadHandler/Fn/UpDlInvoke"
+   }
+  },
+  "LambdasFeedbackHandlerFn5D369963": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Architectures": [
+     "arm64"
+    ],
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-714610888100-ap-south-1",
+     "S3Key": "5d01584c2f43fe1b2381240fab3b8ab7248d9c0ec76dba08abaf4f274c903403.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "NODE_ENV": "dev",
+      "DYNAMODB_TABLE_NAME": {
+       "Ref": "SsmParameterValueprajnadevdatabaseteachingtablenameC96584B6F00A464EAD1953AFF4B05118Parameter"
+      },
+      "EVENT_BUS_NAME": {
+       "Ref": "SsmParameterValueprajnadeveventbridgeeventbusnameC96584B6F00A464EAD1953AFF4B05118Parameter"
+      },
+      "DOCUMENTS_BUCKET_NAME": {
+       "Ref": "SsmParameterValueprajnadevstoragedocumentsbucketnameC96584B6F00A464EAD1953AFF4B05118Parameter"
+      },
+      "STAGE": "dev"
+     }
+    },
+    "FunctionName": "prajna-teaching-feedback-dev",
+    "Handler": "feedback.handler.handler",
+    "LoggingConfig": {
+     "LogGroup": {
+      "Ref": "LambdasfeedbackLogGroupE04B27F8"
+     }
+    },
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "LambdasLambdaRole626CC60B",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs22.x",
+    "Timeout": 30,
+    "TracingConfig": {
+     "Mode": "Active"
+    }
+   },
+   "DependsOn": [
+    "LambdasLambdaRoleDefaultPolicy6AB51A7A",
+    "LambdasLambdaRole626CC60B"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/FeedbackHandler/Fn/Resource",
+    "aws:asset:path": "asset.5d01584c2f43fe1b2381240fab3b8ab7248d9c0ec76dba08abaf4f274c903403",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "LambdasFeedbackHandlerFnFbPostInvokeE9F48C4F": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "LambdasFeedbackHandlerFn5D369963",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/FeedbackHandler/Fn/FbPostInvoke"
+   }
+  },
+  "LambdasFeedbackHandlerFnFbGetInvokeE518B531": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "LambdasFeedbackHandlerFn5D369963",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/FeedbackHandler/Fn/FbGetInvoke"
+   }
+  },
+  "LambdasFeedbackHandlerFnFbGetIdInvoke3E214A79": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "LambdasFeedbackHandlerFn5D369963",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/FeedbackHandler/Fn/FbGetIdInvoke"
+   }
+  },
+  "LambdasFeedbackHandlerFnFbPutIdInvoke7F1C96BF": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "LambdasFeedbackHandlerFn5D369963",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/FeedbackHandler/Fn/FbPutIdInvoke"
+   }
+  },
+  "LambdasFeedbackHandlerFnFbPostRespInvoke8899364E": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "LambdasFeedbackHandlerFn5D369963",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/FeedbackHandler/Fn/FbPostRespInvoke"
+   }
+  },
+  "LambdasScheduleHandlerFn0D7493C6": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Architectures": [
+     "arm64"
+    ],
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-714610888100-ap-south-1",
+     "S3Key": "5d01584c2f43fe1b2381240fab3b8ab7248d9c0ec76dba08abaf4f274c903403.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "NODE_ENV": "dev",
+      "DYNAMODB_TABLE_NAME": {
+       "Ref": "SsmParameterValueprajnadevdatabaseteachingtablenameC96584B6F00A464EAD1953AFF4B05118Parameter"
+      },
+      "EVENT_BUS_NAME": {
+       "Ref": "SsmParameterValueprajnadeveventbridgeeventbusnameC96584B6F00A464EAD1953AFF4B05118Parameter"
+      },
+      "DOCUMENTS_BUCKET_NAME": {
+       "Ref": "SsmParameterValueprajnadevstoragedocumentsbucketnameC96584B6F00A464EAD1953AFF4B05118Parameter"
+      },
+      "STAGE": "dev"
+     }
+    },
+    "FunctionName": "prajna-teaching-schedule-dev",
+    "Handler": "schedule.handler.handler",
+    "LoggingConfig": {
+     "LogGroup": {
+      "Ref": "LambdasscheduleLogGroup13B2181E"
+     }
+    },
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "LambdasLambdaRole626CC60B",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs22.x",
+    "Timeout": 30,
+    "TracingConfig": {
+     "Mode": "Active"
+    }
+   },
+   "DependsOn": [
+    "LambdasLambdaRoleDefaultPolicy6AB51A7A",
+    "LambdasLambdaRole626CC60B"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/ScheduleHandler/Fn/Resource",
+    "aws:asset:path": "asset.5d01584c2f43fe1b2381240fab3b8ab7248d9c0ec76dba08abaf4f274c903403",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "LambdasScheduleHandlerFnLoadInvokeD2FD9F3C": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "LambdasScheduleHandlerFn0D7493C6",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/ScheduleHandler/Fn/LoadInvoke"
+   }
+  },
+  "LambdasScheduleHandlerFnTimetableInvokeC5D4ECAE": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "LambdasScheduleHandlerFn0D7493C6",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/ScheduleHandler/Fn/TimetableInvoke"
+   }
+  },
+  "LambdasScheduleHandlerFnTeachingDepsInvoke620D6DFD": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "LambdasScheduleHandlerFn0D7493C6",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/ScheduleHandler/Fn/TeachingDepsInvoke"
+   }
+  },
+  "LambdasScheduleHandlerFnLPPostInvokeF2AFC4AF": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "LambdasScheduleHandlerFn0D7493C6",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/ScheduleHandler/Fn/LPPostInvoke"
+   }
+  },
+  "LambdasScheduleHandlerFnLPGetInvokeF6264D00": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "LambdasScheduleHandlerFn0D7493C6",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/ScheduleHandler/Fn/LPGetInvoke"
+   }
+  },
+  "LambdasScheduleHandlerFnLPPutInvoke2517847B": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "LambdasScheduleHandlerFn0D7493C6",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/ScheduleHandler/Fn/LPPutInvoke"
+   }
+  },
+  "LambdasScheduleHandlerFnLPDelInvoke01591AD0": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "LambdasScheduleHandlerFn0D7493C6",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/ScheduleHandler/Fn/LPDelInvoke"
+   }
+  },
+  "LambdasScheduleHandlerFnAttPostInvoke4FBF3959": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "LambdasScheduleHandlerFn0D7493C6",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/ScheduleHandler/Fn/AttPostInvoke"
+   }
+  },
+  "LambdasScheduleHandlerFnAttGetInvoke3A5D5BED": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "LambdasScheduleHandlerFn0D7493C6",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/ScheduleHandler/Fn/AttGetInvoke"
+   }
+  },
+  "LambdasScheduleHandlerFnAttPutInvokeA9FA5BF2": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "LambdasScheduleHandlerFn0D7493C6",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/ScheduleHandler/Fn/AttPutInvoke"
+   }
+  },
+  "LambdasGradebookHandlerFnDAA57EE2": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Architectures": [
+     "arm64"
+    ],
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-714610888100-ap-south-1",
+     "S3Key": "5d01584c2f43fe1b2381240fab3b8ab7248d9c0ec76dba08abaf4f274c903403.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "NODE_ENV": "dev",
+      "DYNAMODB_TABLE_NAME": {
+       "Ref": "SsmParameterValueprajnadevdatabaseteachingtablenameC96584B6F00A464EAD1953AFF4B05118Parameter"
+      },
+      "EVENT_BUS_NAME": {
+       "Ref": "SsmParameterValueprajnadeveventbridgeeventbusnameC96584B6F00A464EAD1953AFF4B05118Parameter"
+      },
+      "DOCUMENTS_BUCKET_NAME": {
+       "Ref": "SsmParameterValueprajnadevstoragedocumentsbucketnameC96584B6F00A464EAD1953AFF4B05118Parameter"
+      },
+      "STAGE": "dev"
+     }
+    },
+    "FunctionName": "prajna-teaching-gradebook-dev",
+    "Handler": "gradebook.handler.handler",
+    "LoggingConfig": {
+     "LogGroup": {
+      "Ref": "LambdasgradebookLogGroupAC957978"
+     }
+    },
+    "MemorySize": 512,
+    "Role": {
+     "Fn::GetAtt": [
+      "LambdasLambdaRole626CC60B",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs22.x",
+    "Timeout": 60,
+    "TracingConfig": {
+     "Mode": "Active"
+    }
+   },
+   "DependsOn": [
+    "LambdasLambdaRoleDefaultPolicy6AB51A7A",
+    "LambdasLambdaRole626CC60B"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/GradebookHandler/Fn/Resource",
+    "aws:asset:path": "asset.5d01584c2f43fe1b2381240fab3b8ab7248d9c0ec76dba08abaf4f274c903403",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "LambdasGradebookHandlerFnGbGetInvoke9CEEE287": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "LambdasGradebookHandlerFnDAA57EE2",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/GradebookHandler/Fn/GbGetInvoke"
+   }
+  },
+  "LambdasGradebookHandlerFnGbSyncInvoke875C6D02": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "LambdasGradebookHandlerFnDAA57EE2",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/Lambdas/GradebookHandler/Fn/GbSyncInvoke"
+   }
+  },
+  "ApiIntegrationLoadIntegration587A898A": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "LambdasScheduleHandlerFn0D7493C6",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/LoadIntegration"
+   }
+  },
+  "ApiIntegrationLoadRoute69B721EF": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "SsmParameterValueprajnadevauthcognitoauthorizeridC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "RouteKey": "GET /faculty/teaching/load",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ApiIntegrationLoadIntegration587A898A"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/LoadRoute"
+   }
+  },
+  "ApiIntegrationTimetableIntegrationEC540032": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "LambdasScheduleHandlerFn0D7493C6",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/TimetableIntegration"
+   }
+  },
+  "ApiIntegrationTimetableRoute1D868F96": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "SsmParameterValueprajnadevauthcognitoauthorizeridC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "RouteKey": "GET /faculty/teaching/timetable",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ApiIntegrationTimetableIntegrationEC540032"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/TimetableRoute"
+   }
+  },
+  "ApiIntegrationTeachingDepsIntegration60FFC097": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "LambdasScheduleHandlerFn0D7493C6",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/TeachingDepsIntegration"
+   }
+  },
+  "ApiIntegrationTeachingDepsRoute72786203": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "SsmParameterValueprajnadevauthcognitoauthorizeridC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "RouteKey": "GET /faculty/{facultyId}/teaching",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ApiIntegrationTeachingDepsIntegration60FFC097"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/TeachingDepsRoute"
+   }
+  },
+  "ApiIntegrationLPPostIntegrationC01EA3AC": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "LambdasScheduleHandlerFn0D7493C6",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/LPPostIntegration"
+   }
+  },
+  "ApiIntegrationLPPostRoute2FC82C09": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "SsmParameterValueprajnadevauthcognitoauthorizeridC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "RouteKey": "POST /faculty/teaching/lesson-plan",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ApiIntegrationLPPostIntegrationC01EA3AC"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/LPPostRoute"
+   }
+  },
+  "ApiIntegrationLPGetIntegration1D81A108": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "LambdasScheduleHandlerFn0D7493C6",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/LPGetIntegration"
+   }
+  },
+  "ApiIntegrationLPGetRouteF0962D0A": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "SsmParameterValueprajnadevauthcognitoauthorizeridC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "RouteKey": "GET /faculty/teaching/lesson-plan",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ApiIntegrationLPGetIntegration1D81A108"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/LPGetRoute"
+   }
+  },
+  "ApiIntegrationLPPutIntegrationE358D87E": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "LambdasScheduleHandlerFn0D7493C6",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/LPPutIntegration"
+   }
+  },
+  "ApiIntegrationLPPutRoute6C5E08FC": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "SsmParameterValueprajnadevauthcognitoauthorizeridC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "RouteKey": "PUT /faculty/teaching/lesson-plan/{id}",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ApiIntegrationLPPutIntegrationE358D87E"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/LPPutRoute"
+   }
+  },
+  "ApiIntegrationLPDelIntegrationB82A33AE": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "LambdasScheduleHandlerFn0D7493C6",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/LPDelIntegration"
+   }
+  },
+  "ApiIntegrationLPDelRoute8249B777": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "SsmParameterValueprajnadevauthcognitoauthorizeridC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "RouteKey": "DELETE /faculty/teaching/lesson-plan/{id}",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ApiIntegrationLPDelIntegrationB82A33AE"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/LPDelRoute"
+   }
+  },
+  "ApiIntegrationAttPostIntegration3C4B5841": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "LambdasScheduleHandlerFn0D7493C6",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/AttPostIntegration"
+   }
+  },
+  "ApiIntegrationAttPostRouteE5243D04": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "SsmParameterValueprajnadevauthcognitoauthorizeridC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "RouteKey": "POST /faculty/teaching/attendance",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ApiIntegrationAttPostIntegration3C4B5841"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/AttPostRoute"
+   }
+  },
+  "ApiIntegrationAttGetIntegration0C48F249": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "LambdasScheduleHandlerFn0D7493C6",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/AttGetIntegration"
+   }
+  },
+  "ApiIntegrationAttGetRouteD9041968": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "SsmParameterValueprajnadevauthcognitoauthorizeridC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "RouteKey": "GET /faculty/teaching/attendance",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ApiIntegrationAttGetIntegration0C48F249"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/AttGetRoute"
+   }
+  },
+  "ApiIntegrationAttPutIntegrationA82F5B68": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "LambdasScheduleHandlerFn0D7493C6",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/AttPutIntegration"
+   }
+  },
+  "ApiIntegrationAttPutRoute08CA87F1": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "SsmParameterValueprajnadevauthcognitoauthorizeridC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "RouteKey": "PUT /faculty/teaching/attendance/{id}",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ApiIntegrationAttPutIntegrationA82F5B68"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/AttPutRoute"
+   }
+  },
+  "ApiIntegrationDelPostIntegration03F450AD": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "LambdasDeliverableHandlerFnE7CC8C91",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/DelPostIntegration"
+   }
+  },
+  "ApiIntegrationDelPostRouteB8179E31": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "SsmParameterValueprajnadevauthcognitoauthorizeridC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "RouteKey": "POST /deliverables",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ApiIntegrationDelPostIntegration03F450AD"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/DelPostRoute"
+   }
+  },
+  "ApiIntegrationDelGetIntegration00F3789E": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "LambdasDeliverableHandlerFnE7CC8C91",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/DelGetIntegration"
+   }
+  },
+  "ApiIntegrationDelGetRoute053E7A78": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "SsmParameterValueprajnadevauthcognitoauthorizeridC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "RouteKey": "GET /deliverables",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ApiIntegrationDelGetIntegration00F3789E"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/DelGetRoute"
+   }
+  },
+  "ApiIntegrationDelPutIdIntegration20742062": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "LambdasDeliverableHandlerFnE7CC8C91",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/DelPutIdIntegration"
+   }
+  },
+  "ApiIntegrationDelPutIdRouteAF2791EF": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "SsmParameterValueprajnadevauthcognitoauthorizeridC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "RouteKey": "PUT /deliverables/{id}",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ApiIntegrationDelPutIdIntegration20742062"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/DelPutIdRoute"
+   }
+  },
+  "ApiIntegrationDelDelIdIntegration97EC85AD": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "LambdasDeliverableHandlerFnE7CC8C91",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/DelDelIdIntegration"
+   }
+  },
+  "ApiIntegrationDelDelIdRoute525E130B": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "SsmParameterValueprajnadevauthcognitoauthorizeridC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "RouteKey": "DELETE /deliverables/{id}",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ApiIntegrationDelDelIdIntegration97EC85AD"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/DelDelIdRoute"
+   }
+  },
+  "ApiIntegrationDelGetIdIntegration1F272422": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "LambdasDeliverableHandlerFnE7CC8C91",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/DelGetIdIntegration"
+   }
+  },
+  "ApiIntegrationDelGetIdRouteDD6A9142": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "SsmParameterValueprajnadevauthcognitoauthorizeridC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "RouteKey": "GET /deliverables/{id}",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ApiIntegrationDelGetIdIntegration1F272422"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/DelGetIdRoute"
+   }
+  },
+  "ApiIntegrationFbPostIntegration06F833A1": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "LambdasFeedbackHandlerFn5D369963",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/FbPostIntegration"
+   }
+  },
+  "ApiIntegrationFbPostRouteA33B79BF": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "SsmParameterValueprajnadevauthcognitoauthorizeridC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "RouteKey": "POST /feedback",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ApiIntegrationFbPostIntegration06F833A1"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/FbPostRoute"
+   }
+  },
+  "ApiIntegrationFbGetIntegrationA73EE451": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "LambdasFeedbackHandlerFn5D369963",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/FbGetIntegration"
+   }
+  },
+  "ApiIntegrationFbGetRoute6FD6F9CC": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "SsmParameterValueprajnadevauthcognitoauthorizeridC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "RouteKey": "GET /feedback",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ApiIntegrationFbGetIntegrationA73EE451"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/FbGetRoute"
+   }
+  },
+  "ApiIntegrationFbGetIdIntegrationAA999882": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "LambdasFeedbackHandlerFn5D369963",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/FbGetIdIntegration"
+   }
+  },
+  "ApiIntegrationFbGetIdRoute7B9E9C72": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "SsmParameterValueprajnadevauthcognitoauthorizeridC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "RouteKey": "GET /feedback/{id}",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ApiIntegrationFbGetIdIntegrationAA999882"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/FbGetIdRoute"
+   }
+  },
+  "ApiIntegrationFbPutIdIntegration92620BA9": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "LambdasFeedbackHandlerFn5D369963",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/FbPutIdIntegration"
+   }
+  },
+  "ApiIntegrationFbPutIdRouteDE8BD4C5": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "SsmParameterValueprajnadevauthcognitoauthorizeridC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "RouteKey": "PUT /feedback/{id}/release",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ApiIntegrationFbPutIdIntegration92620BA9"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/FbPutIdRoute"
+   }
+  },
+  "ApiIntegrationFbPostRespIntegration5F54129C": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "LambdasFeedbackHandlerFn5D369963",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/FbPostRespIntegration"
+   }
+  },
+  "ApiIntegrationFbPostRespRouteF7958AEB": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "SsmParameterValueprajnadevauthcognitoauthorizeridC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "RouteKey": "POST /feedback/{id}/response",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ApiIntegrationFbPostRespIntegration5F54129C"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/FbPostRespRoute"
+   }
+  },
+  "ApiIntegrationGbGetIntegrationE2E3E59B": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "LambdasGradebookHandlerFnDAA57EE2",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/GbGetIntegration"
+   }
+  },
+  "ApiIntegrationGbGetRoute9930D336": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "SsmParameterValueprajnadevauthcognitoauthorizeridC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "RouteKey": "GET /gradebook",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ApiIntegrationGbGetIntegrationE2E3E59B"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/GbGetRoute"
+   }
+  },
+  "ApiIntegrationGbSyncIntegration02CD13F8": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "LambdasGradebookHandlerFnDAA57EE2",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/GbSyncIntegration"
+   }
+  },
+  "ApiIntegrationGbSyncRoute336EF070": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "SsmParameterValueprajnadevauthcognitoauthorizeridC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "RouteKey": "GET /gradebook/sync",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ApiIntegrationGbSyncIntegration02CD13F8"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/GbSyncRoute"
+   }
+  },
+  "ApiIntegrationUpTeachingIntegrationC60BFDFC": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "LambdasUploadHandlerFn2159A16D",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/UpTeachingIntegration"
+   }
+  },
+  "ApiIntegrationUpTeachingRouteF9C0E221": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "SsmParameterValueprajnadevauthcognitoauthorizeridC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "RouteKey": "POST /upload/teaching",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ApiIntegrationUpTeachingIntegrationC60BFDFC"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/UpTeachingRoute"
+   }
+  },
+  "ApiIntegrationUpDelIntegrationF02BA37E": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "LambdasUploadHandlerFn2159A16D",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/UpDelIntegration"
+   }
+  },
+  "ApiIntegrationUpDelRoute662C0CE1": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "SsmParameterValueprajnadevauthcognitoauthorizeridC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "RouteKey": "POST /upload/deliverable/{deliverableId}",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ApiIntegrationUpDelIntegrationF02BA37E"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/UpDelRoute"
+   }
+  },
+  "ApiIntegrationUpSubIntegration447D2740": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "LambdasUploadHandlerFn2159A16D",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/UpSubIntegration"
+   }
+  },
+  "ApiIntegrationUpSubRouteB1B264B5": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "SsmParameterValueprajnadevauthcognitoauthorizeridC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "RouteKey": "POST /upload/submission/{deliverableId}/{studentId}",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ApiIntegrationUpSubIntegration447D2740"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/UpSubRoute"
+   }
+  },
+  "ApiIntegrationUpDlIntegration0AA0912C": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "LambdasUploadHandlerFn2159A16D",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/UpDlIntegration"
+   }
+  },
+  "ApiIntegrationUpDlRoute7F08C922": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "SsmParameterValueprajnadevapihttpapiidC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "SsmParameterValueprajnadevauthcognitoauthorizeridC96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "RouteKey": "POST /download",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ApiIntegrationUpDlIntegration0AA0912C"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/ApiIntegration/UpDlRoute"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/12QzWrDQAyEnyX3jZo4offE0FAoNDi9B9mWzSZebVhpY8Lidy92fig9zScNYsRkkL0vYTHDXuZVfZ53toR0UKzOJm94jwEdKQVTkPgYKjLYyzHVN0bn6xJ+sOxoi0Km861A+vLtLvh4GY+fPBi6EqtAKmJHozPqYDp0ZY2QDpbbjtTzR+RKrWfzgrzhv7yn4KyI9TwYiw7S3ne2uk3WnQr/SPBjgqyOKEIqsBnFyAq2sTqTTh/jxbao1OPtmkHKG/5kpTbgM63wUWkYTBVFvTuGRwMCm17yafcq5f/Y8Iun5INia7kdje+ol6iDYV8TnOTtmq1huYbF7CTWzkNktY6guOsvGfc/GJ4BAAA="
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrajnaTeaching-dev/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "DeliverableLambdaArn": {
+   "Value": {
+    "Fn::GetAtt": [
+     "LambdasDeliverableHandlerFnE7CC8C91",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "Prajna-dev-Teaching-DeliverableLambdaArn"
+   }
+  },
+  "ScheduleLambdaArn": {
+   "Value": {
+    "Fn::GetAtt": [
+     "LambdasScheduleHandlerFn0D7493C6",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "Prajna-dev-Teaching-ScheduleLambdaArn"
+   }
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}
